@@ -3,6 +3,8 @@ package org.example;
 import io.github.cdimascio.dotenv.Dotenv;
 import lego_teh_set_discord_bot.commands.CommandCommandList;
 import lego_teh_set_discord_bot.commands.CommandSet;
+import lego_teh_set_discord_bot.commands.TestCommandAboba;
+import lego_teh_set_discord_bot.commands.full_search.CommandFullSearch;
 import lego_teh_set_discord_bot.evenst.GuildsCounter;
 import lego_teh_set_discord_bot.evenst.SlashCommandUpdater;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -43,7 +45,8 @@ public class Main {
         bot.addEventListeners(
             new GuildsCounter(),
                 new CommandSet(),
-                new CommandCommandList()
+                new CommandCommandList(),
+                new CommandFullSearch()
         );
 
         bot.addEventListeners(

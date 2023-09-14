@@ -32,7 +32,16 @@ public class SlashCommandUpdater extends ListenerAdapter {
         );
 
         commandData.add(
+                Commands.slash("full_search", "find all lego sets")
+                        .addOptions(optionDataSet)
+        );
+
+        commandData.add(
                 Commands.slash("command_list", "command list")
+        );
+
+        commandData.add(
+                Commands.slash("aboba", "this is for tests")
         );
 
         event.getJDA().updateCommands().addCommands(

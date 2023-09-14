@@ -1,5 +1,8 @@
 package rebrickableAPI.returned_objects;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 public class Set {
@@ -107,5 +110,20 @@ public class Set {
     @Override
     public int hashCode() {
         return Objects.hash(setNum, name, year, themeId, numParts, setImageUrl, setUrl, lastModifiedDate);
+    }
+
+    public static Set getSetFromJSONObject(JSONObject jsonObject) {
+        Set set = new Set();
+
+        set.setSetNum(jsonObject.getString("set_num"));
+        set.setName(jsonObject.getString("name"));
+        set.setYear(jsonObject.getInt("year"));
+        set.setThemeId(jsonObject.getInt("theme_id"));
+        set.setNumParts(jsonObject.getInt("num_parts"));
+        set.setSetImageUrl(jsonObject.getString("set_img_url"));
+        set.setSetUrl(jsonObject.getString("set_url"));
+        set.setLastModifiedDate(jsonObject.getString("last_modified_dt"));
+
+        return set;
     }
 }
