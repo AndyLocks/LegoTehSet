@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
+import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import rebrickableAPI.RebrickableAPIGetter;
 import rebrickableAPI.returned_objects.Set;
 
@@ -39,13 +40,17 @@ public class CommandFullSearch extends ListenerAdapter {
 
             this.messageHashMap.put(event.getInteraction().getId(), requestMessage);
             EmbedBuilder embedBuilder = requestMessage.getCurrentEmbedBuilder();
-            event.replyEmbeds(embedBuilder.build())
-                    .addActionRow(
-                            firstButton.asDisabled(),
-                            Button.secondary("full_search_left", Emoji.fromFormatted("⬅️")).asDisabled(),
-                            Button.secondary("full_search_right", Emoji.fromFormatted("➡️")),
-                            lastButton
-                    ).queue();
+
+            ReplyCallbackAction replyCallbackAction = event.replyEmbeds(embedBuilder.build());
+            if(requestMessage.hasNext()){
+                replyCallbackAction.addActionRow(
+                        firstButton.asDisabled(),
+                        Button.secondary("full_search_left", Emoji.fromFormatted("⬅️")).asDisabled(),
+                        Button.secondary("full_search_right", Emoji.fromFormatted("➡️")),
+                        lastButton
+                );
+            }
+            replyCallbackAction.queue();
         }
     }
 
