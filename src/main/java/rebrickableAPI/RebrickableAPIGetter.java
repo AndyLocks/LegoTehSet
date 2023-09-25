@@ -71,10 +71,4 @@ public class RebrickableAPIGetter {
 
         return arrayListOfLegoSets;
     }
-
-//    public RequestMessage getRequestMessage(String search) {
-//        RequestMessage requestMessage = new RequestMessage(this.getSearchResult(search));
-//
-//
-//    }
 }
