@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.requests.restaction.MessageEditAction;
+import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import rebrickableAPI.RebrickableAPIGetter;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class CommandFullSearch extends ListenerAdapter {
             if(requestMessage.hasNext())
                 requestMessage.next();
 
-            MessageEditAction replyCallbackAction = event.getMessage().editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
+            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
@@ -79,7 +79,6 @@ public class CommandFullSearch extends ListenerAdapter {
             }
 
             replyCallbackAction.setActionRow(actionRow).queue();
-            event.reply(".").setEphemeral(true).queue();
         }
 
         if(event.getComponentId().equals("full_search_left")) {
@@ -88,7 +87,7 @@ public class CommandFullSearch extends ListenerAdapter {
             if(requestMessage.hasPrev())
                 requestMessage.prev();
 
-            MessageEditAction replyCallbackAction = event.getMessage().editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
+            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
@@ -117,7 +116,7 @@ public class CommandFullSearch extends ListenerAdapter {
             }
 
             replyCallbackAction.setActionRow(actionRow).queue();
-            event.reply(".").setEphemeral(true).queue();
+            System.out.println(this.messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_first")) {
@@ -127,10 +126,9 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️")).asDisabled();
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
 
-            event.getMessage().editMessageEmbeds(answer.build()).setActionRow(
+            event.editMessageEmbeds(answer.build()).setActionRow(
                     firstButton.asDisabled(), buttonLeft, buttonRight, lastButton
             ).queue();
-            event.reply(".").setEphemeral(true).queue();
         }
 
         if(event.getComponentId().equals("full_search_last")) {
@@ -140,10 +138,9 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️")).asDisabled();
 
-            event.getMessage().editMessageEmbeds(answer.build()).setActionRow(
+            event.editMessageEmbeds(answer.build()).setActionRow(
                     firstButton, buttonLeft, buttonRight, lastButton.asDisabled()
             ).queue();
-            event.reply(".").setEphemeral(true).queue();
         }
     }
 }
