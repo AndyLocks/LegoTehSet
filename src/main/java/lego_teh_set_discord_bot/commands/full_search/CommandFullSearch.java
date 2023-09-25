@@ -10,7 +10,9 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.restaction.MessageEditAction;
 import rebrickableAPI.RebrickableAPIGetter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CommandFullSearch extends ListenerAdapter {
 
@@ -58,7 +60,25 @@ public class CommandFullSearch extends ListenerAdapter {
             if(!requestMessage.hasNext())
                 buttonRight = buttonRight.asDisabled();
 
-            replyCallbackAction.setActionRow(firstButton, buttonLeft, buttonRight, lastButton).queue();
+            List<Button> actionRow = new ArrayList<>();
+            if(!requestMessage.hasPrev()){
+                actionRow.add(firstButton.asDisabled());
+            }
+
+            else {
+                actionRow.add(firstButton);
+            }
+
+            actionRow.add(buttonLeft);
+            actionRow.add(buttonRight);
+            if(!requestMessage.hasNext()) {
+                actionRow.add(lastButton.asDisabled());
+            }
+            else {
+                actionRow.add(lastButton);
+            }
+
+            replyCallbackAction.setActionRow(actionRow).queue();
             event.reply(".").setEphemeral(true).queue();
         }
 
@@ -78,7 +98,25 @@ public class CommandFullSearch extends ListenerAdapter {
             if(!requestMessage.hasNext())
                 buttonRight = buttonRight.asDisabled();
 
-            replyCallbackAction.setActionRow(firstButton, buttonLeft, buttonRight, lastButton).queue();
+            List<Button> actionRow = new ArrayList<>();
+            if(!requestMessage.hasPrev()){
+                actionRow.add(firstButton.asDisabled());
+            }
+
+            else {
+                actionRow.add(firstButton);
+            }
+
+            actionRow.add(buttonLeft);
+            actionRow.add(buttonRight);
+            if(!requestMessage.hasNext()) {
+                actionRow.add(lastButton.asDisabled());
+            }
+            else {
+                actionRow.add(lastButton);
+            }
+
+            replyCallbackAction.setActionRow(actionRow).queue();
             event.reply(".").setEphemeral(true).queue();
         }
 
