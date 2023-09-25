@@ -22,7 +22,6 @@ public class CommandFullSearch extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
 
         if(event.getName().equals("full_search")) {
-            System.out.println("Start: " + event.getInteraction().getId());
             OptionMapping optionMapping = event.getOption("request");
             String search = optionMapping.getAsString();
 
