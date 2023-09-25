@@ -1,5 +1,6 @@
 package lego_teh_set_discord_bot.commands.full_search;
 
+import lego_teh_set_discord_bot.component_creators.EmbedBuilderCreator;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -9,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import rebrickableAPI.RebrickableAPIGetter;
+import rebrickableAPI.returned_objects.Set;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +29,13 @@ public class CommandFullSearch extends ListenerAdapter {
             OptionMapping optionMapping = event.getOption("request");
             String search = optionMapping.getAsString();
 
-            RequestMessage requestMessage = new RequestMessage(new RebrickableAPIGetter().getSearchResult(search));
+            List<Set> resultSearch = new RebrickableAPIGetter().getSearchResult(search);
+
+            if(resultSearch.isEmpty()){
+                event.replyEmbeds(EmbedBuilderCreator.Companion.getNullErrorEmbed().build()).setEphemeral(true).queue();
+            }
+
+            RequestMessage requestMessage = new RequestMessage(resultSearch);
 
             this.messageHashMap.put(event.getInteraction().getId(), requestMessage);
             EmbedBuilder embedBuilder = requestMessage.getCurrentEmbedBuilder();
@@ -116,7 +124,6 @@ public class CommandFullSearch extends ListenerAdapter {
             }
 
             replyCallbackAction.setActionRow(actionRow).queue();
-            System.out.println(this.messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_first")) {
