@@ -40,10 +40,6 @@ public class SlashCommandUpdater extends ListenerAdapter {
                 Commands.slash("command_list", "command list")
         );
 
-        commandData.add(
-                Commands.slash("aboba", "this is for tests")
-        );
-
         event.getJDA().updateCommands().addCommands(
                 commandData
         ).queue();
