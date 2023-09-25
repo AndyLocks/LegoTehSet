@@ -2,6 +2,7 @@ package rebrickableAPI;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import rebrickableAPI.returned_objects.Set;
 
@@ -57,7 +58,12 @@ public class RebrickableAPIGetter {
              set.setYear(jsonSet.getInt("year"));
              set.setThemeId(jsonSet.getInt("theme_id"));
              set.setNumParts(jsonSet.getInt("num_parts"));
-             set.setSetImageUrl(jsonSet.getString("set_img_url"));
+             try{
+                 set.setSetImageUrl(jsonSet.getString("set_img_url"));
+             }
+             catch (JSONException e) {
+                 set.setSetImageUrl(null);
+             }
              set.setSetUrl(jsonSet.getString("set_url"));
              set.setLastModifiedDate(jsonSet.getString("last_modified_dt"));
              arrayListOfLegoSets.add(set);
