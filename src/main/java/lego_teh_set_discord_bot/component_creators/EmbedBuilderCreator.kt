@@ -4,7 +4,6 @@ import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.User
 import org.example.Main
 import rebrickableAPI.returned_objects.Set
-import java.awt.Color
 
 class EmbedBuilderCreator {
 

@@ -1,7 +1,6 @@
 package rebrickableAPI;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import lego_teh_set_discord_bot.commands.full_search.RequestMessage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import rebrickableAPI.returned_objects.Set;

@@ -1,6 +1,5 @@
 package rebrickableAPI.returned_objects;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Objects;
