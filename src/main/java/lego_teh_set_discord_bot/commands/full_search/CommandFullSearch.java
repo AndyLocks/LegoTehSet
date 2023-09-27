@@ -47,7 +47,8 @@ public class CommandFullSearch extends ListenerAdapter {
                         firstButton.asDisabled(),
                         Button.secondary("full_search_left", Emoji.fromFormatted("⬅️")).asDisabled(),
                         Button.secondary("full_search_right", Emoji.fromFormatted("➡️")),
-                        lastButton
+                        lastButton,
+                        Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
                 );
             }
             replyCallbackAction.queue();
@@ -90,6 +91,7 @@ public class CommandFullSearch extends ListenerAdapter {
             else {
                 actionRow.add(lastButton);
             }
+            actionRow.add(Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable"));
 
             replyCallbackAction.setActionRow(actionRow).queue();
         }
@@ -128,6 +130,7 @@ public class CommandFullSearch extends ListenerAdapter {
                 actionRow.add(lastButton);
             }
 
+            actionRow.add(Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable"));
             replyCallbackAction.setActionRow(actionRow).queue();
         }
 
@@ -139,7 +142,8 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
 
             event.editMessageEmbeds(answer.build()).setActionRow(
-                    firstButton.asDisabled(), buttonLeft, buttonRight, lastButton
+                    firstButton.asDisabled(), buttonLeft, buttonRight, lastButton,
+                    Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
             ).queue();
         }
 
@@ -151,7 +155,8 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️")).asDisabled();
 
             event.editMessageEmbeds(answer.build()).setActionRow(
-                    firstButton, buttonLeft, buttonRight, lastButton.asDisabled()
+                    firstButton, buttonLeft, buttonRight, lastButton.asDisabled(),
+                    Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
             ).queue();
         }
     }
