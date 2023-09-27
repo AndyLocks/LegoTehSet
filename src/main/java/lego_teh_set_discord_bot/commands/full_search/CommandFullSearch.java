@@ -51,6 +51,11 @@ public class CommandFullSearch extends ListenerAdapter {
                         Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
                 );
             }
+            else{
+                replyCallbackAction.addActionRow(
+                        Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
+                );
+            }
             replyCallbackAction.queue();
         }
     }
