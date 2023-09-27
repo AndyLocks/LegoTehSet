@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
+import rebrickableAPI.OrderingType;
 import rebrickableAPI.RebrickableAPIGetter;
 import rebrickableAPI.returned_objects.Set;
 
@@ -30,7 +31,19 @@ public class CommandFullSearch extends ListenerAdapter {
             OptionMapping optionMapping = event.getOption("request");
             String search = optionMapping.getAsString();
 
-            List<Set> resultSearch = new RebrickableAPIGetter().getSearchResult(search);
+            OptionMapping orderingTypeOptionMapping = event.getOption("ordering");
+
+            List<Set> resultSearch;
+
+            try {
+                String orderingType = orderingTypeOptionMapping.getAsString();
+                resultSearch = new RebrickableAPIGetter().getSearchResult(search, OrderingType.getOrderingTypeFromString(orderingType));
+            }
+            catch (NullPointerException e) {
+                resultSearch = new RebrickableAPIGetter().getSearchResult(search);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             if(resultSearch.isEmpty()){
                 event.replyEmbeds(EmbedBuilderCreator.Companion.getNullErrorEmbed().build()).setEphemeral(true).queue();
