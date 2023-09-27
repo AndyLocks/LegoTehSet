@@ -24,6 +24,11 @@ public class SlashCommandUpdater extends ListenerAdapter {
                 true
         );
 
+        OptionData orderingTypeOptionData = new OptionData(OptionType.STRING, "ordering", "Which field to use when ordering the results.")
+                .addChoice("Year", "year")
+                .addChoice("Name", "name")
+                .addChoice("Number of parts", "num_parts");
+
         commandData.add(
                 Commands.slash("set", "find a lego technic set")
                         .addOptions(
@@ -33,7 +38,7 @@ public class SlashCommandUpdater extends ListenerAdapter {
 
         commandData.add(
                 Commands.slash("full_search", "find all lego sets")
-                        .addOptions(optionDataSet)
+                        .addOptions(optionDataSet, orderingTypeOptionData)
         );
 
         commandData.add(

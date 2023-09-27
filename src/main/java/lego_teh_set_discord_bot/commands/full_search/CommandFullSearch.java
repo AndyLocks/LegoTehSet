@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
+import rebrickableAPI.OrderingType;
 import rebrickableAPI.RebrickableAPIGetter;
 import rebrickableAPI.returned_objects.Set;
 
@@ -30,7 +31,19 @@ public class CommandFullSearch extends ListenerAdapter {
             OptionMapping optionMapping = event.getOption("request");
             String search = optionMapping.getAsString();
 
-            List<Set> resultSearch = new RebrickableAPIGetter().getSearchResult(search);
+            OptionMapping orderingTypeOptionMapping = event.getOption("ordering");
+
+            List<Set> resultSearch;
+
+            try {
+                String orderingType = orderingTypeOptionMapping.getAsString();
+                resultSearch = new RebrickableAPIGetter().getSearchResult(search, OrderingType.getOrderingTypeFromString(orderingType));
+            }
+            catch (NullPointerException e) {
+                resultSearch = new RebrickableAPIGetter().getSearchResult(search);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             if(resultSearch.isEmpty()){
                 event.replyEmbeds(EmbedBuilderCreator.Companion.getNullErrorEmbed().build()).setEphemeral(true).queue();
@@ -39,7 +52,11 @@ public class CommandFullSearch extends ListenerAdapter {
             RequestMessage requestMessage = new RequestMessage(resultSearch);
 
             this.messageHashMap.put(event.getInteraction().getId(), requestMessage);
-            EmbedBuilder embedBuilder = requestMessage.getCurrentEmbedBuilder();
+            EmbedBuilder embedBuilder;
+            if(!requestMessage.hasNext())
+                embedBuilder = requestMessage.getCurrentEmbedBuilder();
+            else
+                embedBuilder = requestMessage.getCurrentEmbedBuilderWithPageNumber();
 
             ReplyCallbackAction replyCallbackAction = event.replyEmbeds(embedBuilder.build());
             if(requestMessage.hasNext()){
@@ -47,7 +64,13 @@ public class CommandFullSearch extends ListenerAdapter {
                         firstButton.asDisabled(),
                         Button.secondary("full_search_left", Emoji.fromFormatted("⬅️")).asDisabled(),
                         Button.secondary("full_search_right", Emoji.fromFormatted("➡️")),
-                        lastButton
+                        lastButton,
+                        Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
+                );
+            }
+            else{
+                replyCallbackAction.addActionRow(
+                        Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
                 );
             }
             replyCallbackAction.queue();
@@ -63,7 +86,7 @@ public class CommandFullSearch extends ListenerAdapter {
             if(requestMessage.hasNext())
                 requestMessage.next();
 
-            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
+            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
@@ -90,6 +113,7 @@ public class CommandFullSearch extends ListenerAdapter {
             else {
                 actionRow.add(lastButton);
             }
+            actionRow.add(Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable"));
 
             replyCallbackAction.setActionRow(actionRow).queue();
         }
@@ -100,7 +124,7 @@ public class CommandFullSearch extends ListenerAdapter {
             if(requestMessage.hasPrev())
                 requestMessage.prev();
 
-            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
+            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
@@ -128,6 +152,7 @@ public class CommandFullSearch extends ListenerAdapter {
                 actionRow.add(lastButton);
             }
 
+            actionRow.add(Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable"));
             replyCallbackAction.setActionRow(actionRow).queue();
         }
 
@@ -139,7 +164,8 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
 
             event.editMessageEmbeds(answer.build()).setActionRow(
-                    firstButton.asDisabled(), buttonLeft, buttonRight, lastButton
+                    firstButton.asDisabled(), buttonLeft, buttonRight, lastButton,
+                    Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
             ).queue();
         }
 
@@ -151,7 +177,8 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️")).asDisabled();
 
             event.editMessageEmbeds(answer.build()).setActionRow(
-                    firstButton, buttonLeft, buttonRight, lastButton.asDisabled()
+                    firstButton, buttonLeft, buttonRight, lastButton.asDisabled(),
+                    Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
             ).queue();
         }
     }
