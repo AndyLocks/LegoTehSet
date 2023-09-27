@@ -39,7 +39,11 @@ public class CommandFullSearch extends ListenerAdapter {
             RequestMessage requestMessage = new RequestMessage(resultSearch);
 
             this.messageHashMap.put(event.getInteraction().getId(), requestMessage);
-            EmbedBuilder embedBuilder = requestMessage.getCurrentEmbedBuilder();
+            EmbedBuilder embedBuilder;
+            if(!requestMessage.hasNext())
+                embedBuilder = requestMessage.getCurrentEmbedBuilder();
+            else
+                embedBuilder = requestMessage.getCurrentEmbedBuilderWithPageNumber();
 
             ReplyCallbackAction replyCallbackAction = event.replyEmbeds(embedBuilder.build());
             if(requestMessage.hasNext()){
@@ -69,7 +73,7 @@ public class CommandFullSearch extends ListenerAdapter {
             if(requestMessage.hasNext())
                 requestMessage.next();
 
-            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
+            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
@@ -107,7 +111,7 @@ public class CommandFullSearch extends ListenerAdapter {
             if(requestMessage.hasPrev())
                 requestMessage.prev();
 
-            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilder().build());
+            MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
