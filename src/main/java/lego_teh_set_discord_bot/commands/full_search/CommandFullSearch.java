@@ -21,8 +21,10 @@ import java.util.List;
 public class CommandFullSearch extends ListenerAdapter {
 
     private HashMap<String, RequestMessage> messageHashMap = new HashMap<String, RequestMessage>();
-    private Button firstButton = Button.secondary("full_search_first", Emoji.fromFormatted("⏮"));
-    private Button lastButton = Button.secondary("full_search_last", Emoji.fromFormatted("⏭"));
+    private Button firstButton = Button.secondary("full_search_first", Emoji.fromFormatted("<:rewind_lts:1156918918103965716>"));
+    private Button lastButton = Button.secondary("full_search_last", Emoji.fromFormatted("<:fast_forward_lts:1156830249250725948>"));
+    private String arrowBackwardEmoji = "<:arrow_backward_lts:1156919033497657345>";
+    private String arrowForwardEmoji = "<:arrow_forward_lts:1156918988572475455>";
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
@@ -62,8 +64,8 @@ public class CommandFullSearch extends ListenerAdapter {
             if(requestMessage.hasNext()){
                 replyCallbackAction.addActionRow(
                         firstButton.asDisabled(),
-                        Button.secondary("full_search_left", Emoji.fromFormatted("⬅️")).asDisabled(),
-                        Button.secondary("full_search_right", Emoji.fromFormatted("➡️")),
+                        Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji)).asDisabled(),
+                        Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji)),
                         lastButton,
                         Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
                 );
@@ -88,8 +90,8 @@ public class CommandFullSearch extends ListenerAdapter {
 
             MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
-            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
-            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
+            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji));
+            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji));
             if(!requestMessage.hasPrev())
                 buttonLeft = buttonLeft.asDisabled();
 
@@ -126,8 +128,8 @@ public class CommandFullSearch extends ListenerAdapter {
 
             MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
-            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
-            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
+            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji));
+            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji));
             if(!requestMessage.hasPrev())
                 buttonLeft = buttonLeft.asDisabled();
 
@@ -160,8 +162,8 @@ public class CommandFullSearch extends ListenerAdapter {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             EmbedBuilder answer = requestMessage.getFirstEmbedBuilder();
 
-            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️")).asDisabled();
-            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️"));
+            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji)).asDisabled();
+            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji));
 
             event.editMessageEmbeds(answer.build()).setActionRow(
                     firstButton.asDisabled(), buttonLeft, buttonRight, lastButton,
@@ -173,8 +175,8 @@ public class CommandFullSearch extends ListenerAdapter {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             EmbedBuilder answer = requestMessage.getLastEmbedBuilder();
 
-            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted("⬅️"));
-            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted("➡️")).asDisabled();
+            Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji));
+            Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji)).asDisabled();
 
             event.editMessageEmbeds(answer.build()).setActionRow(
                     firstButton, buttonLeft, buttonRight, lastButton.asDisabled(),
