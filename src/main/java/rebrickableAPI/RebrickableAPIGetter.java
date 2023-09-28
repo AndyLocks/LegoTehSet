@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RebrickableAPIGetter {
 
-    public List<Set> getSearchResult(String search) {
+    private List<Set> getSearchResultFromUrl(String urlSearch) {
 
         Dotenv config = Dotenv.configure().load();
         String rebrickableApiKey = config.get("REBRICKABLE_API_KEY");
@@ -24,7 +24,7 @@ public class RebrickableAPIGetter {
         StringBuffer response;
 
         try{
-            URL url = new URL("https://rebrickable.com/api/v3/lego/sets/?search=" + search);
+            URL url = new URL(urlSearch);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
@@ -49,26 +49,40 @@ public class RebrickableAPIGetter {
         JSONArray jsonSets = jsonResponseObject.getJSONArray("results");
 
         for (int i = 0; i < jsonSets.length(); i++) {
-             Set set = new Set();
+            Set set = new Set();
 
-             JSONObject jsonSet = jsonSets.getJSONObject(i);
+            JSONObject jsonSet = jsonSets.getJSONObject(i);
 
-             set.setSetNum(jsonSet.getString("set_num"));
-             set.setName(jsonSet.getString("name"));
-             set.setYear(jsonSet.getInt("year"));
-             set.setThemeId(jsonSet.getInt("theme_id"));
-             set.setNumParts(jsonSet.getInt("num_parts"));
-             try{
-                 set.setSetImageUrl(jsonSet.getString("set_img_url"));
-             }
-             catch (JSONException e) {
-                 set.setSetImageUrl(null);
-             }
-             set.setSetUrl(jsonSet.getString("set_url"));
-             set.setLastModifiedDate(jsonSet.getString("last_modified_dt"));
-             arrayListOfLegoSets.add(set);
+            set.setSetNum(jsonSet.getString("set_num"));
+            set.setName(jsonSet.getString("name"));
+            set.setYear(jsonSet.getInt("year"));
+            set.setThemeId(jsonSet.getInt("theme_id"));
+            set.setNumParts(jsonSet.getInt("num_parts"));
+            try{
+                set.setSetImageUrl(jsonSet.getString("set_img_url"));
+            }
+            catch (JSONException e) {
+                set.setSetImageUrl(null);
+            }
+            set.setSetUrl(jsonSet.getString("set_url"));
+            set.setLastModifiedDate(jsonSet.getString("last_modified_dt"));
+            arrayListOfLegoSets.add(set);
         }
 
         return arrayListOfLegoSets;
+    }
+
+    public List<Set> getSearchResult(String search) {
+
+        return this.getSearchResultFromUrl("https://rebrickable.com/api/v3/lego/sets/?search=" + search);
+    }
+
+    public List<Set> getSearchResult(String search, OrderingType orderingType) {
+
+        return this.getSearchResultFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?ordering=")
+                .append(orderingType.getJsonProperty())
+                .append("&search=")
+                .append(search).
+                toString());
     }
 }

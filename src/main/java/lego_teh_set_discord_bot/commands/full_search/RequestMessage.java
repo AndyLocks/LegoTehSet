@@ -21,6 +21,12 @@ public class RequestMessage {
         );
     }
 
+    public EmbedBuilder getCurrentEmbedBuilderWithPageNumber() {
+        EmbedBuilder embedBuilder = this.getCurrentEmbedBuilder();
+        embedBuilder.setTitle(new StringBuilder().append(this.currentIndex+1).append(" / ").append(this.setList.size()).toString());
+        return embedBuilder;
+    }
+
     public Set getCurrentSet() {
         return this.setList.get(this.currentIndex);
     }
@@ -40,14 +46,10 @@ public class RequestMessage {
     }
     public synchronized EmbedBuilder getFirstEmbedBuilder() {
         this.currentIndex = 0;
-        return EmbedBuilderCreator.Companion.getEmbedBuilder(
-                this.setList.get(0)
-        );
+        return this.getCurrentEmbedBuilderWithPageNumber();
     }
     public synchronized EmbedBuilder getLastEmbedBuilder() {
         this.currentIndex = this.setList.size()-1;
-        return EmbedBuilderCreator.Companion.getEmbedBuilder(
-                this.setList.get(this.currentIndex)
-        );
+        return this.getCurrentEmbedBuilderWithPageNumber();
     }
 }
