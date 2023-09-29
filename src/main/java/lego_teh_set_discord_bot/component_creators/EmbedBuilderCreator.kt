@@ -42,6 +42,15 @@ class EmbedBuilderCreator {
                     "> request\n" +
                     "> - What do you want to receive?\n" +
                     "\n" +
+                    "</full_search:1151804106181181450> - show all found sets by request\n" +
+                    "> request\n" +
+                    "> - What do you want to receive?\n" +
+                    "> \n" +
+                    "> ordering(optional)\n" +
+                    "> - Which field to use when ordering the results\n" +
+                    ">  - Year - sort by year\n" +
+                    ">  - Name - sort by name\n" +
+                    ">  - Number of parts - sort by number of parts" + "\n\n" +
                     "</command_list:1149416336708091934> - this message")
 
             val author: User? = Main.getShard().getUserById(authorId)
