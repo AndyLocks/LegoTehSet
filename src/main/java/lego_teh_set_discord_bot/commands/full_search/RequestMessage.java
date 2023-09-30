@@ -52,4 +52,11 @@ public class RequestMessage {
         this.currentIndex = this.setList.size()-1;
         return this.getCurrentEmbedBuilderWithPageNumber();
     }
+    public int size() {
+        return this.setList.size();
+    }
+
+    public void setCurrentIndex(int index) {
+        this.currentIndex = index;
+    }
 }

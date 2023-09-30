@@ -3,11 +3,17 @@ package lego_teh_set_discord_bot.commands.full_search;
 import lego_teh_set_discord_bot.component_creators.EmbedBuilderCreator;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.interactions.components.text.TextInput;
+import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
+import net.dv8tion.jda.api.interactions.modals.Modal;
+import net.dv8tion.jda.api.requests.restaction.MessageEditAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import rebrickableAPI.OrderingType;
@@ -62,12 +68,13 @@ public class CommandFullSearch extends ListenerAdapter {
 
             ReplyCallbackAction replyCallbackAction = event.replyEmbeds(embedBuilder.build());
             if(requestMessage.hasNext()){
+                Button button = Button.secondary("full_search_text_input_button", "page");
                 replyCallbackAction.addActionRow(
                         firstButton.asDisabled(),
                         Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji)).asDisabled(),
                         Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji)),
                         lastButton,
-                        Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
+                        button
                 );
             }
             else{
@@ -115,7 +122,9 @@ public class CommandFullSearch extends ListenerAdapter {
             else {
                 actionRow.add(lastButton);
             }
-            actionRow.add(Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable"));
+
+            Button button = Button.secondary("full_search_text_input_button", "Page");
+            actionRow.add(button);
 
             replyCallbackAction.setActionRow(actionRow).queue();
         }
@@ -154,7 +163,9 @@ public class CommandFullSearch extends ListenerAdapter {
                 actionRow.add(lastButton);
             }
 
-            actionRow.add(Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable"));
+            Button button = Button.secondary("full_search_text_input_button", "Page");
+            actionRow.add(button);
+
             replyCallbackAction.setActionRow(actionRow).queue();
         }
 
@@ -165,9 +176,11 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji)).asDisabled();
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji));
 
+            Button button = Button.secondary("full_search_text_input_button", "Page");
+
             event.editMessageEmbeds(answer.build()).setActionRow(
                     firstButton.asDisabled(), buttonLeft, buttonRight, lastButton,
-                    Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
+                    button
             ).queue();
         }
 
@@ -178,10 +191,77 @@ public class CommandFullSearch extends ListenerAdapter {
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji)).asDisabled();
 
+            Button button = Button.secondary("full_search_text_input_button", "Page");
+
             event.editMessageEmbeds(answer.build()).setActionRow(
                     firstButton, buttonLeft, buttonRight, lastButton.asDisabled(),
-                    Button.link(requestMessage.getCurrentSet().getSetUrl(), "Set on Rebrickable")
+                    button
             ).queue();
+        }
+
+        if(event.getComponentId().equals("full_search_text_input_button")) {
+            TextInput fullSearchTextInput = TextInput.create("full_search_text_input", "Page", TextInputStyle.SHORT)
+                    .setPlaceholder("Page")
+                    .setMinLength(1)
+                    .setMaxLength(4) // or setRequiredRange(10, 100)
+                    .build();
+            Modal modal = Modal.create("full_search_text_input_modmail", "Modmail")
+                    .addComponents(ActionRow.of(fullSearchTextInput))
+                    .build();
+
+            event.replyModal(modal).queue();
+        }
+    }
+
+    @Override
+    public void onModalInteraction(ModalInteractionEvent event) {
+        if(event.getModalId().equals("full_search_text_input_modmail")) {
+            String page = event.getValue("full_search_text_input").getAsString();
+
+            int pageNumber;
+            try{
+                pageNumber = Integer.parseInt(page);
+            }
+            catch (NumberFormatException e) {
+                event.reply("Incorrect input").setEphemeral(true).queue();
+                return;
+            }
+            if(pageNumber <= 0) {
+                event.reply("The number must be greater than zero").setEphemeral(true).queue();
+                return;
+            }
+            RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(pageNumber <= requestMessage.size()) {
+                int index = pageNumber-1;
+                requestMessage.setCurrentIndex(index);
+
+                MessageEditCallbackAction messageEditCallbackAction = event.getInteraction().editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
+
+                List<Button> actionRowList = new ArrayList<>();
+                if(index==0) {
+                    actionRowList.add(firstButton.asDisabled());
+                    actionRowList.add(Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji)).asDisabled());
+                }
+                else{
+                    actionRowList.add(firstButton);
+                    actionRowList.add(Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji)));
+                }
+
+                if(pageNumber== requestMessage.size()) {
+                    actionRowList.add(Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji)).asDisabled());
+                    actionRowList.add(lastButton.asDisabled());
+                }
+                else{
+                    actionRowList.add(Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji)));
+                    actionRowList.add(lastButton);
+                }
+                actionRowList.add(Button.secondary("full_search_text_input_button", "Page"));
+
+                messageEditCallbackAction.setActionRow(actionRowList).queue();
+            }
+            else {
+                event.reply("the number must be from 0 to " + requestMessage.size()).setEphemeral(true).queue();
+            }
         }
     }
 }
