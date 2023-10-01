@@ -4,6 +4,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 import lego_teh_set_discord_bot.commands.CommandCommandList;
 import lego_teh_set_discord_bot.commands.CommandSet;
 import lego_teh_set_discord_bot.commands.full_search.CommandFullSearch;
+import lego_teh_set_discord_bot.context_menus.ContextMenuFullSearch;
+import lego_teh_set_discord_bot.context_menus.ContextMenuSet;
 import lego_teh_set_discord_bot.evenst.GuildsCounter;
 import lego_teh_set_discord_bot.evenst.SlashCommandUpdater;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -45,7 +47,9 @@ public class Main {
                 new GuildsCounter(),
                 new CommandSet(),
                 new CommandCommandList(),
-                new CommandFullSearch()
+                new CommandFullSearch(),
+                new ContextMenuSet(),
+                new ContextMenuFullSearch()
         );
 
         bot.addEventListeners(
