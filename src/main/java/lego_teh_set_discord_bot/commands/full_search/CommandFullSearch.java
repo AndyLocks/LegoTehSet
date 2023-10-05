@@ -20,11 +20,17 @@ import rebrickableAPI.OrderingType;
 import rebrickableAPI.RebrickableAPIGetter;
 import rebrickableAPI.returned_objects.Set;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.logging.*;
 
 public class CommandFullSearch extends ListenerAdapter {
+
+    private static final Logger LOGGER = Logger.getLogger(CommandFullSearch.class.getName());
 
     private HashMap<String, RequestMessage> messageHashMap = new HashMap<String, RequestMessage>();
     private Button firstButton = Button.secondary("full_search_first", Emoji.fromFormatted("<:rewind_lts:1156918918103965716>"));
@@ -32,15 +38,30 @@ public class CommandFullSearch extends ListenerAdapter {
     private String arrowBackwardEmoji = "<:arrow_backward_lts:1156919033497657345>";
     private String arrowForwardEmoji = "<:arrow_forward_lts:1156918988572475455>";
 
+    public CommandFullSearch() throws IOException {
+        LOGGER.setLevel(Level.FINE);
+        FileHandler fileHandler = new FileHandler("/home/illia/IdeaProjects/LegoTehSet/full_search.log");
+        fileHandler.setFormatter(new SimpleFormatter());
+        LOGGER.addHandler(fileHandler);
+        LOGGER.addHandler(new ConsoleHandler());
+    }
+
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
 
         if(event.getName().equals("full_search")) {
+            LOGGER.log(Level.FINE, "[START] ID: {0}", event.getInteraction().getId());
             OptionMapping optionMapping = event.getOption("request");
             String search = optionMapping.getAsString();
+            LOGGER.log(Level.FINE, "search: {0}", search);
 
             OptionMapping orderingTypeOptionMapping = event.getOption("ordering");
-
+            try {
+                LOGGER.log(Level.FINE, "ordering: {0}", orderingTypeOptionMapping.getAsString());
+            }
+            catch (NullPointerException e){
+                LOGGER.log(Level.FINE, "ordering: null");
+            }
             List<Set> resultSearch;
 
             try {
@@ -55,11 +76,13 @@ public class CommandFullSearch extends ListenerAdapter {
 
             if(resultSearch.isEmpty()){
                 event.replyEmbeds(EmbedBuilderCreator.Companion.getNullErrorEmbed().build()).setEphemeral(true).queue();
+                LOGGER.log(Level.FINE, "Result search is null");
             }
 
             RequestMessage requestMessage = new RequestMessage(resultSearch);
 
             this.messageHashMap.put(event.getInteraction().getId(), requestMessage);
+            LOGGER.log(Level.FINE, "Message Hash Map size: {0}", messageHashMap.size());
             EmbedBuilder embedBuilder;
             if(!requestMessage.hasNext())
                 embedBuilder = requestMessage.getCurrentEmbedBuilder();
@@ -68,6 +91,7 @@ public class CommandFullSearch extends ListenerAdapter {
 
             ReplyCallbackAction replyCallbackAction = event.replyEmbeds(embedBuilder.build());
             if(requestMessage.hasNext()){
+                LOGGER.log(Level.FINE, "Request message has a next set");
                 Button button = Button.secondary("full_search_text_input_button", "page");
                 replyCallbackAction.addActionRow(
                         firstButton.asDisabled(),
@@ -92,18 +116,21 @@ public class CommandFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_right")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
 
-            if(requestMessage.hasNext())
+            if(requestMessage.hasNext()) {
                 requestMessage.next();
+            }
 
             MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji));
-            if(!requestMessage.hasPrev())
+            if(!requestMessage.hasPrev()) {
                 buttonLeft = buttonLeft.asDisabled();
+            }
 
-            if(!requestMessage.hasNext())
+            if(!requestMessage.hasNext()) {
                 buttonRight = buttonRight.asDisabled();
+            }
 
             List<Button> actionRow = new ArrayList<>();
             if(!requestMessage.hasPrev()){
@@ -127,23 +154,27 @@ public class CommandFullSearch extends ListenerAdapter {
             actionRow.add(button);
 
             replyCallbackAction.setActionRow(actionRow).queue();
+            LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_left")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
 
-            if(requestMessage.hasPrev())
+            if(requestMessage.hasPrev()) {
                 requestMessage.prev();
+            }
 
             MessageEditCallbackAction replyCallbackAction = event.editMessageEmbeds(requestMessage.getCurrentEmbedBuilderWithPageNumber().build());
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji));
             Button buttonRight = Button.secondary("full_search_right", Emoji.fromFormatted(arrowForwardEmoji));
-            if(!requestMessage.hasPrev())
+            if(!requestMessage.hasPrev()) {
                 buttonLeft = buttonLeft.asDisabled();
+            }
 
-            if(!requestMessage.hasNext())
+            if(!requestMessage.hasNext()) {
                 buttonRight = buttonRight.asDisabled();
+            }
 
             List<Button> actionRow = new ArrayList<>();
             if(!requestMessage.hasPrev()){
@@ -167,6 +198,7 @@ public class CommandFullSearch extends ListenerAdapter {
             actionRow.add(button);
 
             replyCallbackAction.setActionRow(actionRow).queue();
+            LOGGER.log(Level.FINE, "full_search_left: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_first")) {
@@ -182,6 +214,7 @@ public class CommandFullSearch extends ListenerAdapter {
                     firstButton.asDisabled(), buttonLeft, buttonRight, lastButton,
                     button
             ).queue();
+            LOGGER.log(Level.FINE, "full_search_first: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_last")) {
@@ -197,6 +230,7 @@ public class CommandFullSearch extends ListenerAdapter {
                     firstButton, buttonLeft, buttonRight, lastButton.asDisabled(),
                     button
             ).queue();
+            LOGGER.log(Level.FINE, "full_search_last: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_text_input_button")) {
@@ -210,6 +244,7 @@ public class CommandFullSearch extends ListenerAdapter {
                     .build();
 
             event.replyModal(modal).queue();
+            LOGGER.log(Level.FINE, "full_search_text_input_button: Message Hash Map size: {0}", messageHashMap.size());
         }
     }
 
@@ -217,6 +252,7 @@ public class CommandFullSearch extends ListenerAdapter {
     public void onModalInteraction(ModalInteractionEvent event) {
         if(event.getModalId().equals("full_search_text_input_modmail")) {
             String page = event.getValue("full_search_text_input").getAsString();
+            LOGGER.log(Level.FINE, "page: {0}", page);
 
             int pageNumber;
             try{

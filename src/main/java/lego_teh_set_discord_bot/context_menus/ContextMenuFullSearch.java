@@ -18,11 +18,15 @@ import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import rebrickableAPI.RebrickableAPIGetter;
 import rebrickableAPI.returned_objects.Set;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.*;
 
 public class ContextMenuFullSearch extends ListenerAdapter {
+
+    private static final Logger LOGGER = Logger.getLogger(ContextMenuFullSearch.class.getName());
 
     private HashMap<String, RequestMessage> messageHashMap = new HashMap<String, RequestMessage>();
     private Button firstButton = Button.secondary("full_search_first_context_menu", Emoji.fromFormatted("<:rewind_lts:1156918918103965716>"));
@@ -30,15 +34,26 @@ public class ContextMenuFullSearch extends ListenerAdapter {
     private String arrowBackwardEmoji = "<:arrow_backward_lts:1156919033497657345>";
     private String arrowForwardEmoji = "<:arrow_forward_lts:1156918988572475455>";
 
+    public ContextMenuFullSearch() throws IOException {
+        LOGGER.setLevel(Level.FINE);
+        FileHandler fileHandler = new FileHandler("/home/illia/IdeaProjects/LegoTehSet/full_search_context_menu.log");
+        fileHandler.setFormatter(new SimpleFormatter());
+        LOGGER.addHandler(fileHandler);
+        LOGGER.addHandler(new ConsoleHandler());
+    }
+
     @Override
     public void onMessageContextInteraction(MessageContextInteractionEvent event) {
         if(event.getName().equals("full_search")) {
+            LOGGER.log(Level.FINE, "[START] ID: {0}", event.getInteraction().getId());
             String search = event.getTarget().getContentDisplay();
+            LOGGER.log(Level.FINE, "search: {0}", search);
 
             List<Set> resultSearch = new RebrickableAPIGetter().getSearchResult(search);
 
             if(resultSearch.isEmpty()){
                 event.replyEmbeds(EmbedBuilderCreator.Companion.getNullErrorEmbed().build()).setEphemeral(true).queue();
+                LOGGER.log(Level.FINE, "Result search is null");
             }
 
             RequestMessage requestMessage = new RequestMessage(resultSearch);
@@ -52,6 +67,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
 
             ReplyCallbackAction replyCallbackAction = event.replyEmbeds(embedBuilder.build());
             if(requestMessage.hasNext()){
+                LOGGER.log(Level.FINE, "Request message has a next set");
                 Button button = Button.secondary("full_search_text_input_button_context_menu", "page");
                 replyCallbackAction.addActionRow(
                         firstButton.asDisabled(),
@@ -67,6 +83,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
                 );
             }
             replyCallbackAction.queue();
+            LOGGER.log(Level.FINE, "Message Hash Map size: {0}", messageHashMap.size());
         }
     }
     @Override
@@ -110,6 +127,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
             actionRow.add(button);
 
             replyCallbackAction.setActionRow(actionRow).queue();
+            LOGGER.log(Level.FINE, "full_search_right_context_menu: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_left_context_menu")) {
@@ -150,6 +168,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
             actionRow.add(button);
 
             replyCallbackAction.setActionRow(actionRow).queue();
+            LOGGER.log(Level.FINE, "full_search_left_context_menu: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_first_context_menu")) {
@@ -165,6 +184,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
                     firstButton.asDisabled(), buttonLeft, buttonRight, lastButton,
                     button
             ).queue();
+            LOGGER.log(Level.FINE, "full_search_first_context_menu: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_last_context_menu")) {
@@ -180,6 +200,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
                     firstButton, buttonLeft, buttonRight, lastButton.asDisabled(),
                     button
             ).queue();
+            LOGGER.log(Level.FINE, "full_search_last_context_menu: Message Hash Map size: {0}", messageHashMap.size());
         }
 
         if(event.getComponentId().equals("full_search_text_input_button_context_menu")) {
@@ -193,6 +214,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
                     .build();
 
             event.replyModal(modal).queue();
+            LOGGER.log(Level.FINE, "full_search_text_input_button_context_menu: Message Hash Map size: {0}", messageHashMap.size());
         }
     }
 
@@ -200,6 +222,8 @@ public class ContextMenuFullSearch extends ListenerAdapter {
     public void onModalInteraction(ModalInteractionEvent event) {
         if(event.getModalId().equals("full_search_text_input_modmail_context_menu")) {
             String page = event.getValue("full_search_text_input_context_menu").getAsString();
+
+            LOGGER.log(Level.FINE, "page: {0}", page);
 
             int pageNumber;
             try{
@@ -245,6 +269,8 @@ public class ContextMenuFullSearch extends ListenerAdapter {
             else {
                 event.reply("the number must be from 0 to " + requestMessage.size()).setEphemeral(true).queue();
             }
+
+            LOGGER.log(Level.FINE, "full_search_text_input_modmail_context_menu: Message Hash Map size: {0}", messageHashMap.size());
         }
     }
 }

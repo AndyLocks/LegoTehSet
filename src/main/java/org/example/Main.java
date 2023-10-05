@@ -15,11 +15,13 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+import java.io.IOException;
+
 public class Main {
 
     private static ShardManager shard;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Dotenv config = Dotenv.configure().load();
         String token = config.get("TOKEN");
 
