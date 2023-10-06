@@ -77,6 +77,7 @@ public class CommandFullSearch extends ListenerAdapter {
             if(resultSearch.isEmpty()){
                 event.replyEmbeds(EmbedBuilderCreator.Companion.getNullErrorEmbed().build()).setEphemeral(true).queue();
                 LOGGER.log(Level.FINE, "Result search is null");
+                return;
             }
 
             RequestMessage requestMessage = new RequestMessage(resultSearch);
