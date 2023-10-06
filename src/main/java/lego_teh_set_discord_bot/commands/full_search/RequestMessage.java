@@ -32,11 +32,13 @@ public class RequestMessage {
     }
 
     public synchronized void next() {
-        this.currentIndex++;
+        if (currentIndex < this.setList.size()-1)
+            this.currentIndex++;
     }
 
     public synchronized void prev() {
-        this.currentIndex--;
+        if(this.currentIndex != 0)
+            this.currentIndex--;
     }
     public synchronized boolean hasNext() {
         return this.setList.size()-1 > this.currentIndex;
@@ -57,6 +59,8 @@ public class RequestMessage {
     }
 
     public void setCurrentIndex(int index) {
+        if(index > this.setList.size()-1 || index < 0)
+            throw new IndexOutOfBoundsException("Index out of range");
         this.currentIndex = index;
     }
 }
