@@ -4,6 +4,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 import lego_teh_set_discord_bot.commands.CommandCommandList;
 import lego_teh_set_discord_bot.commands.CommandSet;
 import lego_teh_set_discord_bot.commands.full_search.CommandFullSearch;
+import lego_teh_set_discord_bot.context_menus.ContextMenuFullSearch;
+import lego_teh_set_discord_bot.context_menus.ContextMenuSet;
 import lego_teh_set_discord_bot.evenst.GuildsCounter;
 import lego_teh_set_discord_bot.evenst.SlashCommandUpdater;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -13,11 +15,13 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+import java.io.IOException;
+
 public class Main {
 
     private static ShardManager shard;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Dotenv config = Dotenv.configure().load();
         String token = config.get("TOKEN");
 
@@ -45,7 +49,9 @@ public class Main {
                 new GuildsCounter(),
                 new CommandSet(),
                 new CommandCommandList(),
-                new CommandFullSearch()
+                new CommandFullSearch(),
+                new ContextMenuSet(),
+                new ContextMenuFullSearch()
         );
 
         bot.addEventListeners(

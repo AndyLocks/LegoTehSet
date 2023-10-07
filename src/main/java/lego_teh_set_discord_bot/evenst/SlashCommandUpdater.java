@@ -2,6 +2,7 @@ package lego_teh_set_discord_bot.evenst;
 
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -43,6 +44,13 @@ public class SlashCommandUpdater extends ListenerAdapter {
 
         commandData.add(
                 Commands.slash("command_list", "command list")
+        );
+
+        commandData.add(
+                Commands.context(Command.Type.MESSAGE, "set")
+        );
+        commandData.add(
+                Commands.context(Command.Type.MESSAGE, "full_search")
         );
 
         event.getJDA().updateCommands().addCommands(
