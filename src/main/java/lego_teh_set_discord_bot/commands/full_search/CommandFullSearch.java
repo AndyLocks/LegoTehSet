@@ -116,6 +116,10 @@ public class CommandFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_right")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
 
             if(requestMessage.hasNext()) {
                 requestMessage.next();
@@ -160,6 +164,10 @@ public class CommandFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_left")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
 
             if(requestMessage.hasPrev()) {
                 requestMessage.prev();
@@ -204,6 +212,11 @@ public class CommandFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_first")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
+
             EmbedBuilder answer = requestMessage.getFirstEmbedBuilder();
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji)).asDisabled();
@@ -220,6 +233,10 @@ public class CommandFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_last")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
             EmbedBuilder answer = requestMessage.getLastEmbedBuilder();
 
             Button buttonLeft = Button.secondary("full_search_left", Emoji.fromFormatted(arrowBackwardEmoji));
@@ -268,6 +285,10 @@ public class CommandFullSearch extends ListenerAdapter {
                 return;
             }
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
             if(pageNumber <= requestMessage.size()) {
                 int index = pageNumber-1;
                 requestMessage.setCurrentIndex(index);
