@@ -329,4 +329,23 @@ public class RebrickableAPIGetterTest {
         );
         assertArrayEquals(setList.toArray(), this.rebrickableAPIGetter.getPageWithFiveSets(1).toArray());
     }
+
+    @Test
+    public void random_set_test() {
+        try {
+            Thread.sleep(550);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Set set = this.rebrickableAPIGetter.getRundomSet();
+
+        System.out.println(set.getSetNum());
+        System.out.println(set.getName());
+        System.out.println(set.getThemeId());
+        System.out.println(set.getYear());
+        System.out.println(set.getSetUrl());
+        System.out.println(set.getSetImageUrl());
+        System.out.println(set.getLastModifiedDate());
+        System.out.println(set.getNumParts());
+    }
 }

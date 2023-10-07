@@ -60,6 +60,11 @@ public class SlashCommandUpdater extends ListenerAdapter {
         commandData.add(
                 Commands.context(Command.Type.MESSAGE, "set")
         );
+
+        commandData.add(
+                Commands.slash("random", "get random set")
+        );
+
         commandData.add(
                 Commands.context(Command.Type.MESSAGE, "full_search")
         );
