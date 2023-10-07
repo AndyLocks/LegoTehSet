@@ -3,6 +3,7 @@ package org.example;
 import io.github.cdimascio.dotenv.Dotenv;
 import lego_teh_set_discord_bot.commands.CommandCommandList;
 import lego_teh_set_discord_bot.commands.CommandSet;
+import lego_teh_set_discord_bot.commands.CommandSetList;
 import lego_teh_set_discord_bot.commands.full_search.CommandFullSearch;
 import lego_teh_set_discord_bot.context_menus.ContextMenuFullSearch;
 import lego_teh_set_discord_bot.context_menus.ContextMenuSet;
@@ -51,7 +52,8 @@ public class Main {
                 new CommandCommandList(),
                 new CommandFullSearch(),
                 new ContextMenuSet(),
-                new ContextMenuFullSearch()
+                new ContextMenuFullSearch(),
+                new CommandSetList()
         );
 
         bot.addEventListeners(

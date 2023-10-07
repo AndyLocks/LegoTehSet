@@ -25,6 +25,12 @@ public class SlashCommandUpdater extends ListenerAdapter {
                 true
         );
 
+        OptionData optionDataPageNum = new OptionData(
+                OptionType.INTEGER,
+                "page_num",
+                "page number"
+        );
+
         OptionData orderingTypeOptionData = new OptionData(OptionType.STRING, "ordering", "Which field to use when ordering the results.")
                 .addChoice("Year", "year")
                 .addChoice("Name", "name")
@@ -44,6 +50,11 @@ public class SlashCommandUpdater extends ListenerAdapter {
 
         commandData.add(
                 Commands.slash("command_list", "command list")
+        );
+
+        commandData.add(
+                Commands.slash("set_list", "full list of sets")
+                        .addOptions(optionDataPageNum)
         );
 
         commandData.add(
