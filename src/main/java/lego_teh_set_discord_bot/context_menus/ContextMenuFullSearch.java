@@ -92,6 +92,10 @@ public class ContextMenuFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_right_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
 
             if(requestMessage.hasNext())
                 requestMessage.next();
@@ -133,6 +137,10 @@ public class ContextMenuFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_left_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
 
             if(requestMessage.hasPrev())
                 requestMessage.prev();
@@ -174,6 +182,10 @@ public class ContextMenuFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_first_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
             EmbedBuilder answer = requestMessage.getFirstEmbedBuilder();
 
             Button buttonLeft = Button.secondary("full_search_left_context_menu", Emoji.fromFormatted(arrowBackwardEmoji)).asDisabled();
@@ -190,6 +202,10 @@ public class ContextMenuFullSearch extends ListenerAdapter {
 
         if(event.getComponentId().equals("full_search_last_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
             EmbedBuilder answer = requestMessage.getLastEmbedBuilder();
 
             Button buttonLeft = Button.secondary("full_search_left_context_menu", Emoji.fromFormatted(arrowBackwardEmoji));
@@ -235,10 +251,14 @@ public class ContextMenuFullSearch extends ListenerAdapter {
                 return;
             }
             if(pageNumber <= 0) {
-                event.reply("The number must be greater than zero").setEphemeral(true).queue();
+                event.reply("The number must be bigger than zero").setEphemeral(true).queue();
                 return;
             }
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
+            if(requestMessage == null) {
+                event.reply("Error").setEphemeral(true).queue();
+                return;
+            }
             if(pageNumber <= requestMessage.size()) {
                 int index = pageNumber-1;
                 requestMessage.setCurrentIndex(index);
