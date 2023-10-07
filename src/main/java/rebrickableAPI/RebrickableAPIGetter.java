@@ -85,4 +85,16 @@ public class RebrickableAPIGetter {
                 .append(search).
                 toString());
     }
+
+    public List<Set> getPage(int page, int setCount) {
+
+        return this.getSearchResultFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=")
+                .append(page)
+                .append("&page_size=")
+                .append(setCount).toString());
+    }
+
+    public List<Set> getPageWithFiveSets(int page) {
+        return this.getPage(page, 5);
+    }
 }
