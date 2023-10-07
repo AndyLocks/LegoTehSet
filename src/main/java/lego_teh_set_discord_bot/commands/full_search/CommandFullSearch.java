@@ -281,7 +281,7 @@ public class CommandFullSearch extends ListenerAdapter {
                 return;
             }
             if(pageNumber <= 0) {
-                event.reply("The number must be greater than zero").setEphemeral(true).queue();
+                event.reply("The number must be bigger than zero").setEphemeral(true).queue();
                 return;
             }
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
