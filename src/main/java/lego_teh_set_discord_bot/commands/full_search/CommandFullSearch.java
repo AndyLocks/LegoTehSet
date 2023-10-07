@@ -117,7 +117,7 @@ public class CommandFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_right")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
 
@@ -165,7 +165,7 @@ public class CommandFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_left")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
 
@@ -213,7 +213,7 @@ public class CommandFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_first")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
 
@@ -234,7 +234,7 @@ public class CommandFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_last")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
             EmbedBuilder answer = requestMessage.getLastEmbedBuilder();
@@ -286,7 +286,7 @@ public class CommandFullSearch extends ListenerAdapter {
             }
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
             if(pageNumber <= requestMessage.size()) {

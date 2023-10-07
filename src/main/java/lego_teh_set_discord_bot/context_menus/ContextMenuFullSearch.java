@@ -93,7 +93,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_right_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
 
@@ -138,7 +138,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_left_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
 
@@ -183,7 +183,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_first_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
             EmbedBuilder answer = requestMessage.getFirstEmbedBuilder();
@@ -203,7 +203,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
         if(event.getComponentId().equals("full_search_last_context_menu")) {
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
             EmbedBuilder answer = requestMessage.getLastEmbedBuilder();
@@ -256,7 +256,7 @@ public class ContextMenuFullSearch extends ListenerAdapter {
             }
             RequestMessage requestMessage = this.messageHashMap.get(event.getMessage().getInteraction().getId());
             if(requestMessage == null) {
-                event.reply("Error").setEphemeral(true).queue();
+                event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
             if(pageNumber <= requestMessage.size()) {
