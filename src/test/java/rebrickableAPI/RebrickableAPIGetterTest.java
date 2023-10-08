@@ -332,11 +332,6 @@ public class RebrickableAPIGetterTest {
 
     @Test
     public void random_set_test() {
-        try {
-            Thread.sleep(550);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         Set set = this.rebrickableAPIGetter.getRundomSet();
 
         System.out.println(set.getSetNum());
@@ -347,5 +342,30 @@ public class RebrickableAPIGetterTest {
         System.out.println(set.getSetImageUrl());
         System.out.println(set.getLastModifiedDate());
         System.out.println(set.getNumParts());
+    }
+
+    @Test
+    public void random_set_with_theme_test() {
+        Set set = this.rebrickableAPIGetter.getRundomSet(Theme.TECHNIC);
+        System.out.println(set.getSetNum());
+        System.out.println(set.getName());
+        System.out.println(set.getThemeId());
+        System.out.println(set.getYear());
+        System.out.println(set.getSetUrl());
+        System.out.println(set.getSetImageUrl());
+        System.out.println(set.getLastModifiedDate());
+        System.out.println(set.getNumParts());
+        assertEquals(set.getThemeId(), 1);
+
+        Set set2 = this.rebrickableAPIGetter.getRundomSet(Theme.CITY);
+        System.out.println(set2.getSetNum());
+        System.out.println(set2.getName());
+        System.out.println(set2.getThemeId());
+        System.out.println(set2.getYear());
+        System.out.println(set2.getSetUrl());
+        System.out.println(set2.getSetImageUrl());
+        System.out.println(set2.getLastModifiedDate());
+        System.out.println(set2.getNumParts());
+        assertEquals(set2.getThemeId(), 52);
     }
 }

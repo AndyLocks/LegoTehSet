@@ -105,6 +105,39 @@ public class RebrickableAPIGetter {
         return set;
     }
 
+    public Set getRundomSet(Theme theme) {
+        String themeUrl = new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1").append("&theme_id=").append(theme.getThemeId()).toString();
+        JSONObject jsonObject = this.getJSONObjectFromUrl(themeUrl);
+        int setsCount = jsonObject.getInt("count");
+        int randomSetNum = (int) ((Math.random() * (setsCount - 1)) + 1);
+
+        JSONObject jsonObject1 = this.getJSONObjectFromUrl(
+                new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum).append("&page_size=1&theme_id=").append(theme.getThemeId()).toString()
+        );
+
+        JSONArray jsonSets = jsonObject1.getJSONArray("results");
+
+        Set set = new Set();
+
+        JSONObject jsonSet = jsonSets.getJSONObject(0);
+
+        set.setSetNum(jsonSet.getString("set_num"));
+        set.setName(jsonSet.getString("name"));
+        set.setYear(jsonSet.getInt("year"));
+        set.setThemeId(jsonSet.getInt("theme_id"));
+        set.setNumParts(jsonSet.getInt("num_parts"));
+        try{
+            set.setSetImageUrl(jsonSet.getString("set_img_url"));
+        }
+        catch (JSONException e) {
+            set.setSetImageUrl(null);
+        }
+        set.setSetUrl(jsonSet.getString("set_url"));
+        set.setLastModifiedDate(jsonSet.getString("last_modified_dt"));
+
+        return set;
+    }
+
     public List<Set> getSearchResult(String search) {
 
         return this.getSearchResultFromUrl("https://rebrickable.com/api/v3/lego/sets/?search=" + search);
