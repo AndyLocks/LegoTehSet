@@ -16,8 +16,7 @@ import java.util.List;
 
 public class RebrickableAPIGetter {
 
-    private List<Set> getSearchResultFromUrl(String urlSearch) {
-
+    private JSONObject getJSONObjectFromUrl(String urlSearch) {
         Dotenv config = Dotenv.configure().load();
         String rebrickableApiKey = config.get("REBRICKABLE_API_KEY");
 
@@ -41,10 +40,13 @@ public class RebrickableAPIGetter {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return new JSONObject(response.toString());
+    }
 
+    private List<Set> getSearchResultFromUrl(String urlSearch) {
         List<Set> arrayListOfLegoSets = new ArrayList<>();
 
-        JSONObject jsonResponseObject = new JSONObject(response.toString());
+        JSONObject jsonResponseObject = this.getJSONObjectFromUrl(urlSearch);
 
         JSONArray jsonSets = jsonResponseObject.getJSONArray("results");
 
@@ -76,55 +78,13 @@ public class RebrickableAPIGetter {
         Dotenv config = Dotenv.configure().load();
         String rebrickableApiKey = config.get("REBRICKABLE_API_KEY");
 
-        StringBuffer response;
-
-        try{
-            URL url = new URL("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("Authorization", "key " + rebrickableApiKey);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        JSONObject jsonResponseObject = new JSONObject(response.toString());
+        JSONObject jsonResponseObject = this.getJSONObjectFromUrl("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1");
 
         int setsCount = jsonResponseObject.getInt("count");
 
         int randomSetNum = (int) ((Math.random() * (setsCount - 1)) + 1);
 
-        StringBuffer response2;
-
-        try{
-            URL url = new URL(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum).append("&page_size=1").toString());
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("Authorization", "key " + rebrickableApiKey);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            response2 = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response2.append(inputLine);
-            }
-            in.close();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        JSONObject jsonResponseObject2 = new JSONObject(response2.toString());
+        JSONObject jsonResponseObject2 = this.getJSONObjectFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum).append("&page_size=1").toString());
         JSONArray jsonSets = jsonResponseObject2.getJSONArray("results");
 
         Set set = new Set();
