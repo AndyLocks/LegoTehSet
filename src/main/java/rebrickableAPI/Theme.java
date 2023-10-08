@@ -3,7 +3,6 @@ package rebrickableAPI;
 import rebrickableAPI.exceptions.InvalidThemeId;
 import rebrickableAPI.exceptions.InvalidThemeName;
 
-import javax.management.openmbean.SimpleType;
 
 public enum Theme {
 
