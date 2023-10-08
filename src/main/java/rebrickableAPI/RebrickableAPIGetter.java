@@ -75,9 +75,6 @@ public class RebrickableAPIGetter {
     }
 
     public Set getRundomSet() {
-        Dotenv config = Dotenv.configure().load();
-        String rebrickableApiKey = config.get("REBRICKABLE_API_KEY");
-
         JSONObject jsonResponseObject = this.getJSONObjectFromUrl("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1");
 
         int setsCount = jsonResponseObject.getInt("count");
