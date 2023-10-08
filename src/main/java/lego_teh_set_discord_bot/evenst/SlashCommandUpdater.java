@@ -33,7 +33,13 @@ public class SlashCommandUpdater extends ListenerAdapter {
         OptionData theme = new OptionData(OptionType.INTEGER, "theme", "Theme")
                 .addChoice("Technic", 1)
                 .addChoice("Star Wars", 18)
-                .addChoice("City", 52);
+                .addChoice("City", 52)
+                .addChoice("Creator", 22)
+                .addChoice("Bionicle", 324)
+                .addChoice("Ninjago", 435)
+                .addChoice("Minecraft", 577)
+                .addChoice("Duplo", 504)
+                .addChoice("Friends", 216);
 
         commandData.add(
                 Commands.slash("set", "find a lego technic set")
