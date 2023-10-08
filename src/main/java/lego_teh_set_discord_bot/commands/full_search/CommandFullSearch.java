@@ -70,7 +70,7 @@ public class CommandFullSearch extends ListenerAdapter {
             }
             catch (NullPointerException e) {
                 resultSearch = new RebrickableAPIGetter().getSearchResult(search);
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 throw new RuntimeException(e);
             }
 
