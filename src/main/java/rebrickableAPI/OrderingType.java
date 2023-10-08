@@ -14,12 +14,12 @@ public enum OrderingType {
         return this.jsonProperty;
     }
 
-    public static OrderingType getOrderingTypeFromString(String jsonProperty) throws Exception {
+    public static OrderingType getOrderingTypeFromString(String jsonProperty) {
         return switch (jsonProperty) {
             case "year" -> YEAR;
             case "name" -> NAME;
             case "num_parts" -> NUM_PARTS;
-            default -> throw new Exception("Invalid value");
+            default -> throw new RuntimeException("Invalid value");
         };
     }
 }

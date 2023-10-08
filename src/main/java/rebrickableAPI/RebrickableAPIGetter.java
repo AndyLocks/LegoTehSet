@@ -16,8 +16,7 @@ import java.util.List;
 
 public class RebrickableAPIGetter {
 
-    private List<Set> getSearchResultFromUrl(String urlSearch) {
-
+    private JSONObject getJSONObjectFromUrl(String urlSearch) {
         Dotenv config = Dotenv.configure().load();
         String rebrickableApiKey = config.get("REBRICKABLE_API_KEY");
 
@@ -41,10 +40,13 @@ public class RebrickableAPIGetter {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return new JSONObject(response.toString());
+    }
 
+    private List<Set> getSearchResultFromUrl(String urlSearch) {
         List<Set> arrayListOfLegoSets = new ArrayList<>();
 
-        JSONObject jsonResponseObject = new JSONObject(response.toString());
+        JSONObject jsonResponseObject = this.getJSONObjectFromUrl(urlSearch);
 
         JSONArray jsonSets = jsonResponseObject.getJSONArray("results");
 
@@ -72,6 +74,70 @@ public class RebrickableAPIGetter {
         return arrayListOfLegoSets;
     }
 
+    public Set getRundomSet() {
+        JSONObject jsonResponseObject = this.getJSONObjectFromUrl("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1");
+
+        int setsCount = jsonResponseObject.getInt("count");
+
+        int randomSetNum = (int) ((Math.random() * (setsCount - 1)) + 1);
+
+        JSONObject jsonResponseObject2 = this.getJSONObjectFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum).append("&page_size=1").toString());
+        JSONArray jsonSets = jsonResponseObject2.getJSONArray("results");
+
+        Set set = new Set();
+
+        JSONObject jsonSet = jsonSets.getJSONObject(0);
+
+        set.setSetNum(jsonSet.getString("set_num"));
+        set.setName(jsonSet.getString("name"));
+        set.setYear(jsonSet.getInt("year"));
+        set.setThemeId(jsonSet.getInt("theme_id"));
+        set.setNumParts(jsonSet.getInt("num_parts"));
+        try{
+            set.setSetImageUrl(jsonSet.getString("set_img_url"));
+        }
+        catch (JSONException e) {
+            set.setSetImageUrl(null);
+        }
+        set.setSetUrl(jsonSet.getString("set_url"));
+        set.setLastModifiedDate(jsonSet.getString("last_modified_dt"));
+
+        return set;
+    }
+
+    public Set getRundomSet(Theme theme) {
+        String themeUrl = new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1").append("&theme_id=").append(theme.getThemeId()).toString();
+        JSONObject jsonObject = this.getJSONObjectFromUrl(themeUrl);
+        int setsCount = jsonObject.getInt("count");
+        int randomSetNum = (int) ((Math.random() * (setsCount - 1)) + 1);
+
+        JSONObject jsonObject1 = this.getJSONObjectFromUrl(
+                new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum).append("&page_size=1&theme_id=").append(theme.getThemeId()).toString()
+        );
+
+        JSONArray jsonSets = jsonObject1.getJSONArray("results");
+
+        Set set = new Set();
+
+        JSONObject jsonSet = jsonSets.getJSONObject(0);
+
+        set.setSetNum(jsonSet.getString("set_num"));
+        set.setName(jsonSet.getString("name"));
+        set.setYear(jsonSet.getInt("year"));
+        set.setThemeId(jsonSet.getInt("theme_id"));
+        set.setNumParts(jsonSet.getInt("num_parts"));
+        try{
+            set.setSetImageUrl(jsonSet.getString("set_img_url"));
+        }
+        catch (JSONException e) {
+            set.setSetImageUrl(null);
+        }
+        set.setSetUrl(jsonSet.getString("set_url"));
+        set.setLastModifiedDate(jsonSet.getString("last_modified_dt"));
+
+        return set;
+    }
+
     public List<Set> getSearchResult(String search) {
 
         return this.getSearchResultFromUrl("https://rebrickable.com/api/v3/lego/sets/?search=" + search);
@@ -84,5 +150,17 @@ public class RebrickableAPIGetter {
                 .append("&search=")
                 .append(search).
                 toString());
+    }
+
+    public List<Set> getPage(int page, int setCount) {
+
+        return this.getSearchResultFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=")
+                .append(page)
+                .append("&page_size=")
+                .append(setCount).toString());
+    }
+
+    public List<Set> getPageWithFiveSets(int page) {
+        return this.getPage(page, 5);
     }
 }
