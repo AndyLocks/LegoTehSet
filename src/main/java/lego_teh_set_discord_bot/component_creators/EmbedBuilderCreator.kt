@@ -51,7 +51,9 @@ class EmbedBuilderCreator {
                     ">  - Year - sort by year\n" +
                     ">  - Name - sort by name\n" +
                     ">  - Number of parts - sort by number of parts" + "\n\n" +
-                    "</command_list:1149416336708091934> - this message")
+                    "</command_list:1149416336708091934> - this message\n\n</random:1160349765201039430> - get random set\n" +
+                    "> theme(optional)\n" +
+                    "> - set theme")
 
             val author: User? = Main.getShard().getUserById(authorId)
             embedBuilder.setFooter("${author?.name} © 2023 Все права не нужны", author?.avatarUrl)
