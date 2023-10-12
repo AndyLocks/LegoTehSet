@@ -22,17 +22,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.logging.*;
 
 public class ContextMenuFullSearch extends ListenerAdapter {
 
     private static final Logger LOGGER = Logger.getLogger(ContextMenuFullSearch.class.getName());
 
-    private HashMap<String, RequestMessage> messageHashMap = new HashMap<String, RequestMessage>();
-    private Button firstButton = Button.secondary("full_search_first_context_menu", Emoji.fromFormatted("<:rewind_lts:1156918918103965716>"));
-    private Button lastButton = Button.secondary("full_search_last_context_menu", Emoji.fromFormatted("<:fast_forward_lts:1156830249250725948>"));
-    private String arrowBackwardEmoji = "<:arrow_backward_lts:1156919033497657345>";
-    private String arrowForwardEmoji = "<:arrow_forward_lts:1156918988572475455>";
+    private final ConcurrentMap<String, RequestMessage> messageHashMap = new ConcurrentHashMap<String, RequestMessage>();
+    private final Button firstButton = Button.secondary("full_search_first_context_menu", Emoji.fromFormatted("<:rewind_lts:1156918918103965716>"));
+    private final Button lastButton = Button.secondary("full_search_last_context_menu", Emoji.fromFormatted("<:fast_forward_lts:1156830249250725948>"));
+    private final String arrowBackwardEmoji = "<:arrow_backward_lts:1156919033497657345>";
+    private final String arrowForwardEmoji = "<:arrow_forward_lts:1156918988572475455>";
 
     public ContextMenuFullSearch() throws IOException {
         LOGGER.setLevel(Level.FINE);
