@@ -32,26 +32,26 @@ public class RequestMessage {
         return this.setList.get(this.currentIndex.get());
     }
 
-    public synchronized void next() {
+    public void next() {
         if (currentIndex.get() < this.setList.size()-1)
             this.currentIndex.getAndIncrement();
     }
 
-    public synchronized void prev() {
+    public void prev() {
         if(this.currentIndex.get() != 0)
             this.currentIndex.getAndDecrement();
     }
-    public synchronized boolean hasNext() {
+    public boolean hasNext() {
         return this.setList.size()-1 > this.currentIndex.get();
     }
-    public synchronized boolean hasPrev() {
+    public boolean hasPrev() {
         return this.currentIndex.get() > 0;
     }
-    public synchronized EmbedBuilder getFirstEmbedBuilder() {
+    public EmbedBuilder getFirstEmbedBuilder() {
         this.currentIndex.set(0);
         return this.getCurrentEmbedBuilderWithPageNumber();
     }
-    public synchronized EmbedBuilder getLastEmbedBuilder() {
+    public EmbedBuilder getLastEmbedBuilder() {
         this.currentIndex.set(this.setList.size()-1);
         return this.getCurrentEmbedBuilderWithPageNumber();
     }
