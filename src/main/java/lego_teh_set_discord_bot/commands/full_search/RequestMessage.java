@@ -5,11 +5,12 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import rebrickableAPI.returned_objects.Set;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RequestMessage {
 
     private volatile List<Set> setList;
-    private volatile int currentIndex = 0;
+    private volatile AtomicInteger currentIndex = new AtomicInteger(0);
 
     public RequestMessage(List<Set> setList) {
         this.setList = setList;
@@ -17,41 +18,41 @@ public class RequestMessage {
 
     public EmbedBuilder getCurrentEmbedBuilder() {
         return EmbedBuilderCreator.Companion.getEmbedBuilder(
-                this.setList.get(this.currentIndex)
+                this.setList.get(this.currentIndex.get())
         );
     }
 
     public EmbedBuilder getCurrentEmbedBuilderWithPageNumber() {
         EmbedBuilder embedBuilder = this.getCurrentEmbedBuilder();
-        embedBuilder.setTitle(new StringBuilder().append(this.currentIndex+1).append(" / ").append(this.setList.size()).toString());
+        embedBuilder.setTitle(new StringBuilder().append(this.currentIndex.get()+1).append(" / ").append(this.setList.size()).toString());
         return embedBuilder;
     }
 
     public Set getCurrentSet() {
-        return this.setList.get(this.currentIndex);
+        return this.setList.get(this.currentIndex.get());
     }
 
     public synchronized void next() {
-        if (currentIndex < this.setList.size()-1)
-            this.currentIndex++;
+        if (currentIndex.get() < this.setList.size()-1)
+            this.currentIndex.getAndIncrement();
     }
 
     public synchronized void prev() {
-        if(this.currentIndex != 0)
-            this.currentIndex--;
+        if(this.currentIndex.get() != 0)
+            this.currentIndex.getAndDecrement();
     }
     public synchronized boolean hasNext() {
-        return this.setList.size()-1 > this.currentIndex;
+        return this.setList.size()-1 > this.currentIndex.get();
     }
     public synchronized boolean hasPrev() {
-        return this.currentIndex > 0;
+        return this.currentIndex.get() > 0;
     }
     public synchronized EmbedBuilder getFirstEmbedBuilder() {
-        this.currentIndex = 0;
+        this.currentIndex.set(0);
         return this.getCurrentEmbedBuilderWithPageNumber();
     }
     public synchronized EmbedBuilder getLastEmbedBuilder() {
-        this.currentIndex = this.setList.size()-1;
+        this.currentIndex.set(this.setList.size()-1);
         return this.getCurrentEmbedBuilderWithPageNumber();
     }
     public int size() {
@@ -61,6 +62,6 @@ public class RequestMessage {
     public void setCurrentIndex(int index) {
         if(index > this.setList.size()-1 || index < 0)
             throw new IndexOutOfBoundsException("Index out of range");
-        this.currentIndex = index;
+        this.currentIndex.set(index);
     }
 }
