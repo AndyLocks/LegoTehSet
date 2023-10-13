@@ -15,8 +15,8 @@ public enum Theme {
     DUPLO("Duplo", 504),
     MINECRAFT("Minecraft", 577),
     CITY("City", 52);
-    private int themeId;
-    private String themeName;
+    private final int themeId;
+    private final String themeName;
     Theme(String themeName, int themeId) {
         this.themeName = themeName;
         this.themeId = themeId;
