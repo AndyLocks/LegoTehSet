@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RequestMessage {
 
-    private List<Set> setList;
-    private AtomicInteger currentIndex = new AtomicInteger(0);
+    private final List<Set> setList;
+    private final AtomicInteger currentIndex = new AtomicInteger(0);
 
     public RequestMessage(List<Set> setList) {
         this.setList = setList;
