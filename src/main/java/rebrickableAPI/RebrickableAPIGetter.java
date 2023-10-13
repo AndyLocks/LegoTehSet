@@ -20,7 +20,7 @@ public class RebrickableAPIGetter {
         Dotenv config = Dotenv.configure().load();
         String rebrickableApiKey = config.get("REBRICKABLE_API_KEY");
 
-        StringBuffer response;
+        StringBuilder response;
 
         try{
             URL url = new URL(urlSearch);
@@ -31,7 +31,7 @@ public class RebrickableAPIGetter {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
-            response = new StringBuffer();
+            response = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }

@@ -4,7 +4,7 @@ public enum OrderingType {
     YEAR("year"),
     NAME("name"),
     NUM_PARTS("num_parts");
-    private String jsonProperty;
+    private final String jsonProperty;
 
     OrderingType(String jsonProperty) {
         this.jsonProperty = jsonProperty;
