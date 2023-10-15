@@ -46,6 +46,8 @@ public class SearchCommandHandler {
         }
         buttonList.add(pageButton);
 
+        LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
+
         return buttonList;
     }
 
@@ -72,6 +74,8 @@ public class SearchCommandHandler {
 
         this.setsContainerMap.put(interactionId, setsContainer);
 
+        LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
+
         return new CommandSearchResponse(
                 this.getButtonList(setsContainer),
                 setsContainer.getCurrentSet(),
@@ -86,6 +90,9 @@ public class SearchCommandHandler {
             throw new NullPointerException("Sets Container is null");
         setsContainer.next();
         Set set = setsContainer.getCurrentSet();
+
+        LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
+
         return new CommandSearchResponse(
                 this.getButtonList(setsContainer),
                 set,
@@ -100,6 +107,9 @@ public class SearchCommandHandler {
             throw new NullPointerException("Sets Container is null");
         setsContainer.prev();
         Set set = setsContainer.getCurrentSet();
+
+        LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
+
         return new CommandSearchResponse(
                 this.getButtonList(setsContainer),
                 set,
@@ -114,6 +124,9 @@ public class SearchCommandHandler {
             throw new NullPointerException("Sets Container is null");
         setsContainer.toStart();
         Set set = setsContainer.getCurrentSet();
+
+        LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
+
         return new CommandSearchResponse(
                 this.getButtonList(setsContainer),
                 set,
@@ -128,6 +141,9 @@ public class SearchCommandHandler {
             throw new NullPointerException("Sets Container is null");
         setsContainer.toEnd();
         Set set = setsContainer.getCurrentSet();
+
+        LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
+
         return new CommandSearchResponse(
                 this.getButtonList(setsContainer),
                 set,
@@ -142,6 +158,9 @@ public class SearchCommandHandler {
             throw new NullPointerException("Sets Container is null");
         setsContainer.setCurrentIndex(page);
         Set set = setsContainer.getCurrentSet();
+
+        LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
+
         return new CommandSearchResponse(
                 this.getButtonList(setsContainer),
                 set,
