@@ -42,17 +42,6 @@ public class SlashCommandUpdater extends ListenerAdapter {
                 .addChoice("Friends", 216);
 
         commandData.add(
-                Commands.slash("set", "find a lego technic set")
-                        .addOptions(
-                                optionDataSet
-                        )
-        );
-
-        commandData.add(
-                Commands.slash("full_search", "find all lego sets")
-                        .addOptions(optionDataSet, orderingTypeOptionData)
-        );
-        commandData.add(
                 Commands.slash("search", "find all lego sets")
                         .addOptions(optionDataSet, orderingTypeOptionData)
         );
