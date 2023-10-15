@@ -29,12 +29,18 @@ public class CommandSearch extends ListenerAdapter {
             catch (NullPointerException e) {
                 orderingType = null;
             }
-
-            CommandSearchResponse commandSearchResponse = this.searchCommandHandler.init(
-                    search,
-                    orderingType,
-                    event.getInteraction().getId()
-            );
+            CommandSearchResponse commandSearchResponse;
+            try {
+                commandSearchResponse = this.searchCommandHandler.init(
+                        search,
+                        orderingType,
+                        event.getInteraction().getId()
+                );
+            }
+            catch (EmptySetsContainerException e) {
+                event.replyEmbeds(EmbedBuilderCreator.Companion.getNullErrorEmbed().build()).setEphemeral(true).queue();
+                return;
+            }
 
             event.replyEmbeds(
                     EmbedBuilderCreator.Companion.getEmbedBuilder(commandSearchResponse.getCurrentSet())
