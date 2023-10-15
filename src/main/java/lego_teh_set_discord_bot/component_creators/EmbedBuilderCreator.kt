@@ -38,11 +38,7 @@ class EmbedBuilderCreator {
             embedBuilder.setColor(color)
             embedBuilder.setDescription("# Command list\n" +
                     "\n" +
-                    "</set:1071455594378178650> - find a set on request\n" +
-                    "> request\n" +
-                    "> - What do you want to receive?\n" +
-                    "\n" +
-                    "</full_search:1151804106181181450> - show all found sets by request\n" +
+                    "</search:1163119606987231342> - show all found sets by request\n" +
                     "> request\n" +
                     "> - What do you want to receive?\n" +
                     "> \n" +
