@@ -1,6 +1,5 @@
 package lego_teh_set_discord_bot.commands.search;
 
-import lego_teh_set_discord_bot.commands.full_search.RequestMessage;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
