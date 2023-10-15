@@ -40,3 +40,4 @@ build/
 .env
 /full_search.log
 /full_search_context_menu.log
+/search.log
