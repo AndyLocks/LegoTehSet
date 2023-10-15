@@ -5,6 +5,7 @@ import lego_teh_set_discord_bot.commands.CommandCommandList;
 import lego_teh_set_discord_bot.commands.CommandRandom;
 import lego_teh_set_discord_bot.commands.CommandSet;
 import lego_teh_set_discord_bot.commands.full_search.CommandFullSearch;
+import lego_teh_set_discord_bot.commands.search.CommandSearch;
 import lego_teh_set_discord_bot.context_menus.ContextMenuFullSearch;
 import lego_teh_set_discord_bot.context_menus.ContextMenuSet;
 import lego_teh_set_discord_bot.evenst.GuildsCounter;
@@ -53,7 +54,8 @@ public class Main {
                 new CommandFullSearch(),
                 new ContextMenuSet(),
                 new ContextMenuFullSearch(),
-                new CommandRandom()
+                new CommandRandom(),
+                new CommandSearch()
         );
 
         bot.addEventListeners(
