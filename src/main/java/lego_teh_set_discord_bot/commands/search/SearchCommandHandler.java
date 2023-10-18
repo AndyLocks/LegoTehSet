@@ -87,7 +87,7 @@ public class SearchCommandHandler {
     public CommandSearchResponse arrowForward(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
         if(setsContainer == null)
-            throw new NullPointerException("Sets Container is null");
+            throw new EmptySetsContainerException("Sets Container is null");
         setsContainer.next();
         Set set = setsContainer.getCurrentSet();
 
@@ -104,7 +104,7 @@ public class SearchCommandHandler {
     public CommandSearchResponse arrowBackward(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
         if(setsContainer == null)
-            throw new NullPointerException("Sets Container is null");
+            throw new EmptySetsContainerException("Sets Container is null");
         setsContainer.prev();
         Set set = setsContainer.getCurrentSet();
 
@@ -121,7 +121,7 @@ public class SearchCommandHandler {
     public CommandSearchResponse toStart(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
         if(setsContainer == null)
-            throw new NullPointerException("Sets Container is null");
+            throw new EmptySetsContainerException("Sets Container is null");
         setsContainer.toStart();
         Set set = setsContainer.getCurrentSet();
 
@@ -138,7 +138,7 @@ public class SearchCommandHandler {
     public CommandSearchResponse toEnd(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
         if(setsContainer == null)
-            throw new NullPointerException("Sets Container is null");
+            throw new EmptySetsContainerException("Sets Container is null");
         setsContainer.toEnd();
         Set set = setsContainer.getCurrentSet();
 
@@ -155,7 +155,7 @@ public class SearchCommandHandler {
     public CommandSearchResponse pageButtonInteraction(String interactionId, int page) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
         if(setsContainer == null)
-            throw new NullPointerException("Sets Container is null");
+            throw new EmptySetsContainerException("Sets Container is null");
         setsContainer.setCurrentIndex(page);
         Set set = setsContainer.getCurrentSet();
 

@@ -59,7 +59,7 @@ public class CommandSearch extends ListenerAdapter {
             try {
                 commandSearchResponse = this.searchCommandHandler.arrowForward(interactionId);
             }
-            catch (NullPointerException e){
+            catch (EmptySetsContainerException e){
                 event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
@@ -79,7 +79,7 @@ public class CommandSearch extends ListenerAdapter {
             try {
                 commandSearchResponse = this.searchCommandHandler.arrowBackward(interactionId);
             }
-            catch (NullPointerException e) {
+            catch (EmptySetsContainerException e) {
                 event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
@@ -99,7 +99,7 @@ public class CommandSearch extends ListenerAdapter {
             try {
                 commandSearchResponse = this.searchCommandHandler.toStart(interactionId);
             }
-            catch (NullPointerException e){
+            catch (EmptySetsContainerException e){
                 event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
@@ -119,7 +119,7 @@ public class CommandSearch extends ListenerAdapter {
             try {
                 commandSearchResponse = this.searchCommandHandler.toEnd(interactionId);
             }
-            catch (NullPointerException e){
+            catch (EmptySetsContainerException e){
                 event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
                 return;
             }
@@ -168,7 +168,7 @@ public class CommandSearch extends ListenerAdapter {
         try {
             commandSearchResponse = this.searchCommandHandler.pageButtonInteraction(event.getMessage().getInteraction().getId(), index);
         }
-        catch (NullPointerException e) {
+        catch (EmptySetsContainerException e) {
             event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
             return;
         }
