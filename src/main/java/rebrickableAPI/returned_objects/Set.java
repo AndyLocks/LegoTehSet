@@ -125,4 +125,18 @@ public class Set {
 
         return set;
     }
+
+    @Override
+    public String toString() {
+        return "Set{" +
+                "setNum='" + setNum + '\'' +
+                ", name='" + name + '\'' +
+                ", year=" + year +
+                ", themeId=" + themeId +
+                ", numParts=" + numParts +
+                ", setImageUrl='" + setImageUrl + '\'' +
+                ", setUrl='" + setUrl + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                '}';
+    }
 }
