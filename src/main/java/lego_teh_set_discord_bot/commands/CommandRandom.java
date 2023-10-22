@@ -5,10 +5,12 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import rebrickableAPI.RebrickableAPIGetter;
 import rebrickableAPI.Theme;
 import rebrickableAPI.exceptions.InvalidThemeId;
 import rebrickableAPI.returned_objects.Set;
+import spring_config.SpringConfig;
 
 public class CommandRandom extends ListenerAdapter {
 
@@ -16,7 +18,6 @@ public class CommandRandom extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if(event.getName().equals("random")) {
             OptionMapping optionMapping = event.getOption("theme");
-
             Theme theme = null;
             try{
                 int themeId = optionMapping.getAsInt();
@@ -30,10 +31,13 @@ public class CommandRandom extends ListenerAdapter {
             }
 
             Set set;
-            if(theme == null)
-                set = new RebrickableAPIGetter().getRundomSet();
-            else
-                set = new RebrickableAPIGetter().getRundomSet(theme);
+            try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class)) {
+                if(theme == null) {
+                    set = context.getBean("rebrickableAPIGetter", RebrickableAPIGetter.class).getRundomSet();
+                }
+                else
+                    set = context.getBean("rebrickableAPIGetter", RebrickableAPIGetter.class).getRundomSet(theme);
+            }
 
             event.replyEmbeds(
                     EmbedBuilderCreator.Companion.getEmbedBuilder(set).build()

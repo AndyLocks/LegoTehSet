@@ -4,6 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 import rebrickableAPI.returned_objects.Set;
 
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class RebrickableAPIGetter {
 
     private JSONObject getJSONObjectFromUrl(String urlSearch) {

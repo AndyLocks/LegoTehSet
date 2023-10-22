@@ -2,9 +2,11 @@ package lego_teh_set_discord_bot.commands.search;
 
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import rebrickableAPI.OrderingType;
 import rebrickableAPI.RebrickableAPIGetter;
 import rebrickableAPI.returned_objects.Set;
+import spring_config.SpringConfig;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -65,10 +67,12 @@ public class SearchCommandHandler {
 
     public CommandSearchResponse init(String search, OrderingType orderingType, String interactionId) {
         List<Set> resultSetList;
-        if(orderingType == null)
-            resultSetList = new RebrickableAPIGetter().getSearchResult(search);
-        else
-            resultSetList = new RebrickableAPIGetter().getSearchResult(search, orderingType);
+        try(AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class)) {
+            if(orderingType == null)
+                resultSetList = context.getBean("rebrickableAPIGetter", RebrickableAPIGetter.class).getSearchResult(search);
+            else
+                resultSetList = context.getBean("rebrickableAPIGetter", RebrickableAPIGetter.class).getSearchResult(search, orderingType);
+        }
 
         SetsContainer setsContainer = new SetsContainer(resultSetList);
 
