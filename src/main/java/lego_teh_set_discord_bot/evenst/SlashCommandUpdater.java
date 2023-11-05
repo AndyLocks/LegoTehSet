@@ -11,6 +11,10 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Обновляет список слэш-команд у discord бота.
+ * Также добавляет аргументы в команды.
+ */
 public class SlashCommandUpdater extends ListenerAdapter {
 
     @Override
