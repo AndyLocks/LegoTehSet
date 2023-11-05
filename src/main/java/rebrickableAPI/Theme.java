@@ -3,7 +3,12 @@ package rebrickableAPI;
 import rebrickableAPI.exceptions.InvalidThemeId;
 import rebrickableAPI.exceptions.InvalidThemeName;
 
-
+/**
+ * Тематика набора.
+ * <p>
+ * Не используется в {@link rebrickableAPI.returned_objects.Set}.
+ * Он нужен только для запросов в базу данных для получения наборов по теме.
+ */
 public enum Theme {
 
     TECHNIC("Technic", 1),
@@ -22,6 +27,13 @@ public enum Theme {
         this.themeId = themeId;
     }
 
+    /**
+     * Дает тематику по айди
+     *
+     * @param themeId айди темы в <a href="https://rebrickable.com/api/v3/docs/">базе данных rebrickable</a>
+     * @return дает тематику
+     * @throws InvalidThemeId если не найдена тема по айди
+     */
     public static Theme getThemeFromId(int themeId) throws InvalidThemeId {
         return switch (themeId) {
             case 1 -> TECHNIC;
@@ -37,6 +49,13 @@ public enum Theme {
         };
     }
 
+    /**
+     * Дает тематику по имени
+     *
+     * @param themeName имя темы
+     * @return дает тематику
+     * @throws InvalidThemeName если не найдена тема по имени
+     */
     public static Theme getThemeFromName(String themeName) throws InvalidThemeName {
         return switch (themeName) {
             case "Technic" -> TECHNIC;
