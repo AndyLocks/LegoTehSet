@@ -4,6 +4,9 @@ import net.dv8tion.jda.api.EmbedBuilder
 import org.example.Main
 import rebrickableAPI.returned_objects.Set
 
+/**
+ * Создает ответы для discord в виде Embed сообщений.
+ */
 class EmbedBuilderCreator {
 
     companion object{
@@ -28,6 +31,12 @@ class EmbedBuilderCreator {
                     "> - set theme")
             .setFooter("${Main.getShard().getUserById(authorId)?.name} © 2023 Все права не нужны", Main.getShard().getUserById(authorId)?.avatarUrl);
 
+        /**
+         * Заполняет вложенное сообщение данными из набора
+         *
+         * @param set набор, для которого нужно создать ответ
+         * @return {@link EmbedBuilder} заполненный данными о наборе
+         */
         public fun getEmbedBuilder(set: Set): EmbedBuilder {
 
             val embedBuilder: EmbedBuilder = EmbedBuilder()
@@ -40,6 +49,9 @@ class EmbedBuilderCreator {
             return embedBuilder
         }
 
+        /**
+         * Дает сообщение об ошибке, когда набор не найден.
+         */
         public fun getNullErrorEmbed(): EmbedBuilder {
 
             val embedBuilder: EmbedBuilder = EmbedBuilder()
@@ -49,6 +61,9 @@ class EmbedBuilderCreator {
             return embedBuilder
         }
 
+        /**
+         * Дает список всех команд бота
+         */
         public fun getCommandListEmbedBuilder(): EmbedBuilder {
             return this.embedBuilder
         }
