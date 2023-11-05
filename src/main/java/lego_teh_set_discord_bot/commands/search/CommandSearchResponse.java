@@ -6,12 +6,26 @@ import rebrickableAPI.returned_objects.Set;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Ответ от обработчика команды.
+ * Содержит информацию для отображения в чате discord.
+ * <p>
+ * Этот ответ дает класс {@link SearchCommandHandler}
+ * Ответ запрашивает {@link CommandSearch}
+ */
 public class CommandSearchResponse {
     private final List<Button> buttonList;
     private final Set set;
     private final int currentIndex;
     private final int maxIndex;
 
+    /**
+     * @param buttonList список кнопок
+     * @param set возвращаемый набор лего
+     * @param currentIndex нужен для отображения количества страниц
+     * @param maxIndex нужен для отображения максимальной страницы
+     * @see Set
+     */
     public CommandSearchResponse(List<Button> buttonList, Set set, int currentIndex, int maxIndex) {
         this.buttonList = buttonList;
         this.set = set;
@@ -23,6 +37,14 @@ public class CommandSearchResponse {
         return this.set;
     }
 
+    /**
+     * Кнопки для отображения в чате.
+     * Некоторые из них могут быть активированными или нет,
+     * в зависимости от того,
+     * где находится курсор.
+     *
+     * @return список корректных кнопок
+     */
     public List<Button> getButtonList() {
         return buttonList;
     }
