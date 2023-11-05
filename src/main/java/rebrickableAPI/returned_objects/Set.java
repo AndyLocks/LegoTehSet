@@ -4,6 +4,10 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
+/**
+ * Представляет собой лего набор.
+ * Является контейнером данных
+ */
 public class Set {
 
     private String setNum;
@@ -111,6 +115,13 @@ public class Set {
         return Objects.hash(setNum, name, year, themeId, numParts, setImageUrl, setUrl, lastModifiedDate);
     }
 
+    /**
+     * Дает набор по json объекту
+     *
+     * @param jsonObject объект с параметрами set_num, name, year, theme_id, num_parts, set_img_url, set_url, last_modified_dt.
+     *                   Пример last_modified_dt: 2023-04-23T10:54:36.190875Z
+     * @return возвращает уже заполненный объект набора
+     */
     public static Set getSetFromJSONObject(JSONObject jsonObject) {
         Set set = new Set();
 
