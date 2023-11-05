@@ -15,6 +15,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Делает запросы к серверам rebrickable
+ * <p>
+ * Является бином spring framework
+ * <a href="https://rebrickable.com/api/v3/docs/">Документация rebrickable API</a>
+ */
 @Component
 public class RebrickableAPIGetter {
 
@@ -76,6 +82,12 @@ public class RebrickableAPIGetter {
         return arrayListOfLegoSets;
     }
 
+    /**
+     * Случайный набор из базы данных
+     *
+     * @return случайный набор
+     * @see Set
+     */
     public Set getRundomSet() {
         JSONObject jsonResponseObject = this.getJSONObjectFromUrl("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1");
 
@@ -107,6 +119,14 @@ public class RebrickableAPIGetter {
         return set;
     }
 
+    /**
+     * Случайный набор из базы данных
+     *
+     * @param theme тематика набора
+     * @return случайный набор
+     * @see Theme
+     * @see Set
+     */
     public Set getRundomSet(Theme theme) {
         String themeUrl = new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1").append("&theme_id=").append(theme.getThemeId()).toString();
         JSONObject jsonObject = this.getJSONObjectFromUrl(themeUrl);
@@ -140,11 +160,27 @@ public class RebrickableAPIGetter {
         return set;
     }
 
+    /**
+     * Все наборы найденные по запросу
+     *
+     * @param search запрос для поиска
+     * @return список всех наборов
+     * @see Set
+     */
     public List<Set> getSearchResult(String search) {
 
         return this.getSearchResultFromUrl("https://rebrickable.com/api/v3/lego/sets/?search=" + search);
     }
 
+    /**
+     * Все наборы найденные по запросу
+     *
+     * @param search запрос для поиска
+     * @param orderingType тип для сортировки
+     * @return список всех наборов
+     * @see Set
+     * @see OrderingType
+     */
     public List<Set> getSearchResult(String search, OrderingType orderingType) {
 
         return this.getSearchResultFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?ordering=")
@@ -152,17 +188,5 @@ public class RebrickableAPIGetter {
                 .append("&search=")
                 .append(search).
                 toString());
-    }
-
-    public List<Set> getPage(int page, int setCount) {
-
-        return this.getSearchResultFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=")
-                .append(page)
-                .append("&page_size=")
-                .append(setCount).toString());
-    }
-
-    public List<Set> getPageWithFiveSets(int page) {
-        return this.getPage(page, 5);
     }
 }
