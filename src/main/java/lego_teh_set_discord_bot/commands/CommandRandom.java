@@ -12,6 +12,12 @@ import rebrickableAPI.exceptions.InvalidThemeId;
 import rebrickableAPI.returned_objects.Set;
 import spring_config.SpringConfig;
 
+/**
+ * Класс для прослушки команды random
+ * <p>
+ * Этот класс нужен для {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}
+ * Этот класс реализует {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}
+ */
 public class CommandRandom extends ListenerAdapter {
 
     @Override
