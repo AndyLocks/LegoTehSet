@@ -7,6 +7,9 @@ import net.dv8tion.jda.api.events.session.ReadyEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.example.Main
 
+/**
+ * Считает количество гильдий, на которых находится бот.
+ */
 class GuildsCounter : ListenerAdapter() {
 
     private fun updateGuildsLengthActivity() {
