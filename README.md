@@ -1,26 +1,9 @@
-# **<p align="center">Lego Teh Set</p>**
+# Lego Teh Set
 
-<p align="center">
-    <span>
-        <a href="https://github.com/AndyLocks/LegoTehSet/blob/master/LICENSE">
-            <img src="https://img.shields.io/badge/gpl-yellow?style=for-the-badge&label=license&labelColor=black">
-        </a>
-    </span>
-    <span>
-        <img src="https://img.shields.io/badge/discord-blue?style=for-the-badge&logo=discord&logoColor=white&labelColor=black">
-    </span>
-    <span>
-        <a href="https://github.com/discord-jda/JDA">
-            <img src="https://img.shields.io/badge/JDA-purple?style=for-the-badge&logo=discord&logoColor=white&labelColor=black">
-        </a>
-    </span>
-    <span>
-        <a href="https://rebrickable.com/api/">
-            <img src="https://img.shields.io/badge/Rebrickable-orange?style=for-the-badge&logoColor=white&label=Lego%20API&labelColor=black">
-        </a>
-    </span>
-</p>
-
+[![gpl](https://img.shields.io/badge/gpl-yellow?style=for-the-badge&label=license&labelColor=black)](https://github.com/AndyLocks/LegoTehSet/blob/master/LICENSE)
+![discord](https://img.shields.io/badge/discord-blue?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)
+[![JDA](https://img.shields.io/badge/JDA-purple?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)](https://github.com/discord-jda/JDA)
+[![rebrickable](https://img.shields.io/badge/Rebrickable-orange?style=for-the-badge&logoColor=white&label=Lego%20API&labelColor=black)](https://rebrickable.com/api/)
 <p align="center"><img src="https://cdn.discordapp.com/app-icons/1015539392393252924/6838c1cfa6cf3d73cc5a0d37991e4d13.png"></p>
 
 ***<p align="center">A bot that will help you find lego sets directly in discord chat</p>***
