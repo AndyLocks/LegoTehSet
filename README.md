@@ -37,6 +37,6 @@ This bot automates the search and speeds it up. Using one command, you can reque
   
   ![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/a359144b-a8cb-4796-8680-8c342b0ac941)
 
-### Lego API
+## Lego API
 [Rebrickable](https://rebrickable.com/api/)
 > Rebrickable provides a number of API/Web Services to assist developers build their own websites or apps which use the Rebrickable database.
