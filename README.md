@@ -8,7 +8,7 @@
 
 ***<p align="center">A bot that will help you find lego sets directly in discord chat</p>***
 
-![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/8bb662ce-86c7-403f-b8fe-877f73ab94dd)
+<p align="center"><img src="https://github.com/AndyLocks/LegoTehSet/assets/112815007/8bb662ce-86c7-403f-b8fe-877f73ab94dd"></p>
 
 ## Description
 This bot automates the search and speeds it up. Using one command, you can request several Lego sets at once directly in the discord chat.
