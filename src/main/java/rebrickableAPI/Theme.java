@@ -4,10 +4,10 @@ import rebrickableAPI.exceptions.InvalidThemeId;
 import rebrickableAPI.exceptions.InvalidThemeName;
 
 /**
- * Тематика набора.
+ * A lego set's theme.
  * <p>
- * Не используется в {@link rebrickableAPI.returned_objects.Set}.
- * Он нужен только для запросов в базу данных для получения наборов по теме.
+ * Not used in {@link rebrickableAPI.returned_objects.Set}.
+ * It is only needed for database requests.
  */
 public enum Theme {
 
@@ -28,11 +28,11 @@ public enum Theme {
     }
 
     /**
-     * Дает тематику по айди
+     * Gives the theme of the lego set by id.
      *
-     * @param themeId айди темы в <a href="https://rebrickable.com/api/v3/docs/">базе данных rebrickable</a>
-     * @return дает тематику
-     * @throws InvalidThemeId если не найдена тема по айди
+     * @param themeId theme ID in the <a href="https://rebrickable.com/api/v3/docs/">rebrickable database</a>
+     * @return gives a theme
+     * @throws InvalidThemeId if the theme is not found by ID
      */
     public static Theme getThemeFromId(int themeId) throws InvalidThemeId {
         return switch (themeId) {
@@ -50,11 +50,11 @@ public enum Theme {
     }
 
     /**
-     * Дает тематику по имени
+     * Gives a theme by name.
      *
-     * @param themeName имя темы
-     * @return дает тематику
-     * @throws InvalidThemeName если не найдена тема по имени
+     * @param themeName theme name
+     * @return gives a theme
+     * @throws InvalidThemeName if the theme is not found by name
      */
     public static Theme getThemeFromName(String themeName) throws InvalidThemeName {
         return switch (themeName) {

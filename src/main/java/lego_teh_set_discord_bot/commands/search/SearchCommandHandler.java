@@ -20,10 +20,10 @@ import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Обработчик команды search
+ * Search command handler.
  * <p>
- * Тут спрятана вся логика команды search.
- * Этим классом пользуется {@link CommandSearch} для получения {@link CommandSearchResponse}
+ * This is where all the logic of the search command is hidden.
+ * This class is used by the {@link CommandSearch} to get the {@link CommandSearchResponse}.
  */
 public class SearchCommandHandler {
     private static final Logger LOGGER = Logger.getLogger(SearchCommandHandler.class.getName());
@@ -35,12 +35,12 @@ public class SearchCommandHandler {
     private final Button pageButton = Button.secondary("search_text_input_button", "page");
 
     /**
-     * Получить актуальные кнопки.
+     * Get actual buttons.
      * <p>
-     * Актуальность кнопок зависит от текущего индекса.
+     * The relevance of the buttons depends on the current index.
      *
-     * @param setsContainer контейнер с наборами
-     * @return возвращает список кнопок в зависимости от текущего индекса
+     * @param setsContainer set container
+     * @return returns the list of buttons depending on the current index
      *
      * @see SetsContainer
      */
@@ -82,14 +82,14 @@ public class SearchCommandHandler {
     }
 
     /**
-     * Инициализация всего необходимого для работы команды search
+     * Initialization of everything necessary for the search command to work.
      * <p>
-     * Подготавливает все к работе и добавляет {@link SetsContainer} в {@link #setsContainerMap}
+     * Gets everything ready to go and adds {@link SetsContainer} to the {@link #setsContainerMap}.
      *
-     * @param search поисковой запрос от пользователя
-     * @param orderingType тема, по которой нужно сортировать наборы. Может также быть и null
-     * @param interactionId уникальное айди взаимодействия для взаимодействия с discord. Также является ключем для {@link #setsContainerMap}
-     * @return возвращает ответ
+     * @param search user search request
+     * @param orderingType the theme on which to sort the sets. Can also be null
+     * @param interactionId a unique id to interact with discord. It's also the key to {@link #setsContainerMap}
+     * @return returns a response
      */
     public CommandSearchResponse init(String search, OrderingType orderingType, String interactionId) {
         List<Set> resultSetList;
@@ -115,14 +115,14 @@ public class SearchCommandHandler {
     }
 
     /**
-     * Взаимодействие с кнопкой вперед
+     * Interaction with the forward button.
      * <p>
-     * Изменяет {@link SetsContainer} в {@link #setsContainerMap}
-     * При этом перемещает индекс на один элемент вперед
+     * Changes {@link SetsContainer} in {@link #setsContainerMap}.
+     * Also moves the index one element forward.
      *
-     * @param interactionId уникальное айди взаимодействия для взаимодействия с discord. Также является ключем для {@link #setsContainerMap}
-     * @return возвращает ответ уже с перемещенным индексом
-     * @throws EmptySetsContainerException если контейнер оказался пустым
+     * @param interactionId a unique id to interact with discord. It's also the key to {@link #setsContainerMap}
+     * @return returns a response with the index already moved
+     * @throws EmptySetsContainerException if the container is empty
      */
     public CommandSearchResponse arrowForward(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
@@ -142,14 +142,14 @@ public class SearchCommandHandler {
     }
 
     /**
-     * Взаимодействие с кнопкой назад
+     * Interaction with the backward button.
      * <p>
-     * Изменяет {@link SetsContainer} в {@link #setsContainerMap}
-     * При этом перемещает индекс на один элемент назад
+     * Changes {@link SetsContainer} in {@link #setsContainerMap}.
+     * Also moves the index one element backward.
      *
-     * @param interactionId уникальное айди взаимодействия для взаимодействия с discord. Также является ключем для {@link #setsContainerMap}
-     * @return возвращает ответ уже с перемещенным индексом
-     * @throws EmptySetsContainerException если контейнер оказался пустым
+     * @param interactionId a unique id to interact with discord. It's also the key to {@link #setsContainerMap}
+     * @return returns a response with the index already moved
+     * @throws EmptySetsContainerException if the container is empty
      */
     public CommandSearchResponse arrowBackward(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
@@ -169,14 +169,14 @@ public class SearchCommandHandler {
     }
 
     /**
-     * Перейти к самому началу
+     * Jump to the start.
      * <p>
-     * Изменяет {@link SetsContainer} в {@link #setsContainerMap}
-     * При этом перемещает индекс в самое начало
+     * Changes {@link SetsContainer} in {@link #setsContainerMap}.
+     * Also moves the index to the start.
      *
-     * @param interactionId уникальное айди взаимодействия для взаимодействия с discord. Также является ключем для {@link #setsContainerMap}
-     * @return возвращает ответ уже с перемещенным индексом
-     * @throws EmptySetsContainerException если контейнер оказался пустым
+     * @param interactionId a unique id to interact with discord. It's also the key to {@link #setsContainerMap}
+     * @return returns a response with the index already moved
+     * @throws EmptySetsContainerException if the container is empty
      */
     public CommandSearchResponse toStart(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
@@ -196,14 +196,14 @@ public class SearchCommandHandler {
     }
 
     /**
-     * Перейти в самый конец
+     * Jump to the end.
      * <p>
-     * Изменяет {@link SetsContainer} в {@link #setsContainerMap}
-     * При этом перемещает индекс в самый конец
+     * Changes {@link SetsContainer} in {@link #setsContainerMap}.
+     * Also moves the index to the end.
      *
-     * @param interactionId уникальное айди взаимодействия для взаимодействия с discord. Также является ключем для {@link #setsContainerMap}
-     * @return возвращает ответ уже с перемещенным индексом
-     * @throws EmptySetsContainerException если контейнер оказался пустым
+     * @param interactionId a unique id to interact with discord. It's also the key to {@link #setsContainerMap}
+     * @return returns a response with the index already moved
+     * @throws EmptySetsContainerException if the container is empty
      */
     public CommandSearchResponse toEnd(String interactionId) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);
@@ -223,16 +223,16 @@ public class SearchCommandHandler {
     }
 
     /**
-     * Взаимодействие с кнопкой страницы.
-     * Кнопка страницы позволяет пользователю выбрать нужную страницу.
+     * Interacting with the page button.
+     * The page button allows the user to select the desired page.
      * <p>
-     * Изменяет {@link SetsContainer} в {@link #setsContainerMap}
-     * При этом перемещает индекс в зависимости от страницы
+     * Changes {@link SetsContainer} in {@link #setsContainerMap}.
+     * Also moves the index depending on the page.
      *
-     * @param interactionId уникальное айди взаимодействия для взаимодействия с discord. Также является ключем для {@link #setsContainerMap}
-     * @return возвращает ответ уже с перемещенным индексом
-     * @throws EmptySetsContainerException если контейнер оказался пустым
-     * @throws IndexOutOfBoundsException если индекс выходит за рамки дозволенного
+     * @param interactionId a unique id to interact with discord. It's also the key to {@link #setsContainerMap}
+     * @return returns a response with the index already moved
+     * @throws EmptySetsContainerException if the container is empty
+     * @throws IndexOutOfBoundsException if the index is out of bounds
      */
     public CommandSearchResponse pageButtonInteraction(String interactionId, int page) {
         SetsContainer setsContainer = this.setsContainerMap.get(interactionId);

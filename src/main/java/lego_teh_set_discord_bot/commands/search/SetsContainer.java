@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *  Содержит наборы и управляет ими.
+ *  Contains and manages sets.
  *  <p>
- *  Представляет собой список наборов {@link Set}
- *  Также дает возможность перемещать курсор и получать текущий набор
+ *  Represents a list of {@link Set}.
+ *  Also allows you to move the cursor and get the current set.
  */
 public class SetsContainer {
     private final List<Set> setList;
@@ -20,7 +20,7 @@ public class SetsContainer {
     }
 
     /**
-     * @return набор, на который смотрит курсор
+     * @return the set the cursor is looking at
      */
     public Set getCurrentSet() {
         if(setList.isEmpty())
@@ -29,7 +29,7 @@ public class SetsContainer {
     }
 
     /**
-     * Перемещает курсор на один вперед
+     * Moves the cursor one forward.
      */
     public void next() {
         if (currentIndex.get() < this.setList.size()-1)
@@ -37,7 +37,7 @@ public class SetsContainer {
     }
 
     /**
-     * Перемещает курсор на один назад
+     * Moves the cursor one backward.
      */
     public void prev() {
         if(this.currentIndex.get() != 0)
@@ -45,28 +45,28 @@ public class SetsContainer {
     }
 
     /**
-     * @return true если есть следующий элемент
+     * @return true if there is the next element
      */
     public boolean hasNext() {
         return this.setList.size()-1 > this.currentIndex.get();
     }
 
     /**
-     * @return true если есть предыдущий элемент
+     * @return true if there is a previous element
      */
     public boolean hasPrev() {
         return this.currentIndex.get() > 0;
     }
 
     /**
-     * Переносит курсор на самый первый набор
+     * Moves the cursor to the first set.
      */
     public void toStart() {
         this.currentIndex.set(0);
     }
 
     /**
-     * Переносит набор на самый последний набор
+     * Moves the cursor to the last set.
      */
     public void toEnd() {
         if(setList.isEmpty())
@@ -75,10 +75,10 @@ public class SetsContainer {
     }
 
     /**
-     * Устанавливает текущий индекс
+     * Sets the current cursor.
      *
-     * @param index желаемый индекс
-     * @throws IndexOutOfBoundsException если индекс выходит за рамки дозволенного
+     * @param index desired index
+     * @throws IndexOutOfBoundsException if the index is out of bounds
      */
     public void setCurrentIndex(int index) {
         if(index > this.setList.size()-1 || index < 0)
@@ -87,14 +87,14 @@ public class SetsContainer {
     }
 
     /**
-     * @return размер массива с наборами
+     * @return set array size
      */
     public int size() {
         return this.setList.size();
     }
 
     /**
-     * @return индекс текущего набора
+     * @return cursor position
      */
     public int getCurrentIndex() {
         return this.currentIndex.get();

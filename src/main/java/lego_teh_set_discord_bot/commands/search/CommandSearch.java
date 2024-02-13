@@ -13,12 +13,12 @@ import net.dv8tion.jda.api.interactions.modals.Modal;
 import rebrickableAPI.OrderingType;
 
 /**
- * Класс для прослушки команды search.
- * Выдает в чат список всех найденных наборов по запросу.
+ * A class to listen to the search command.
+ * Outputs to chat a list of all found sets by request.
  * <p>
- * Этот класс нужен для {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}
- * Этот класс реализует {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)},
- * {@link #onButtonInteraction(ButtonInteractionEvent)}, {@link #onModalInteraction(ModalInteractionEvent)}
+ * This class is for {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
+ * This class implements {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)},
+ * {@link #onButtonInteraction(ButtonInteractionEvent)}, {@link #onModalInteraction(ModalInteractionEvent)}.
  */
 public class CommandSearch extends ListenerAdapter {
     private final SearchCommandHandler searchCommandHandler = new SearchCommandHandler();

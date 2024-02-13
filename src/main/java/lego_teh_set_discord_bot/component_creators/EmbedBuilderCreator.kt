@@ -5,7 +5,7 @@ import org.example.Main
 import rebrickableAPI.returned_objects.Set
 
 /**
- * Создает ответы для discord в виде Embed сообщений.
+ * Creates responses for discord as embed messages.
  */
 class EmbedBuilderCreator {
 
@@ -32,10 +32,10 @@ class EmbedBuilderCreator {
             .setFooter("${Main.getShard().getUserById(authorId)?.name} © 2023 Все права не нужны", Main.getShard().getUserById(authorId)?.avatarUrl);
 
         /**
-         * Заполняет вложенное сообщение данными из набора
+         * Fills the embedded message with data from the set.
          *
-         * @param set набор, для которого нужно создать ответ
-         * @return {@link EmbedBuilder} заполненный данными о наборе
+         * @param set the set for which you want to create a response
+         * @return {@link EmbedBuilder} with lego set data
          */
         public fun getEmbedBuilder(set: Set): EmbedBuilder {
 
@@ -50,7 +50,7 @@ class EmbedBuilderCreator {
         }
 
         /**
-         * Дает сообщение об ошибке, когда набор не найден.
+         * Gives an error message when a set is not found.
          */
         public fun getNullErrorEmbed(): EmbedBuilder {
 
@@ -62,7 +62,7 @@ class EmbedBuilderCreator {
         }
 
         /**
-         * Дает список всех команд бота
+         * Gives a list of all bot commands.
          */
         public fun getCommandListEmbedBuilder(): EmbedBuilder {
             return this.embedBuilder

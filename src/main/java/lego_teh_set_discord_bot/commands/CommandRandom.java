@@ -13,10 +13,11 @@ import rebrickableAPI.returned_objects.Set;
 import spring_config.SpringConfig;
 
 /**
- * Класс для прослушки команды random
+ * Class for listening to the command "random".
+ * Returns a random set.
  * <p>
- * Этот класс нужен для {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}
- * Этот класс реализует {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}
+ * This class is for {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
+ * This class implements {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}.
  */
 public class CommandRandom extends ListenerAdapter {
 

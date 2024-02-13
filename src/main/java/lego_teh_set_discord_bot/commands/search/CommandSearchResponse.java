@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Ответ от обработчика команды.
- * Содержит информацию для отображения в чате discord.
+ * Response from the command handler.
+ * Contains information to be displayed in discord chat.
  * <p>
- * Этот ответ дает класс {@link SearchCommandHandler}
- * Ответ запрашивает {@link CommandSearch}
+ * This answer is given by the {@link SearchCommandHandler}.
+ * The response is requested by the {@link CommandSearch}.
  */
 public class CommandSearchResponse {
     private final List<Button> buttonList;
@@ -20,10 +20,10 @@ public class CommandSearchResponse {
     private final int maxIndex;
 
     /**
-     * @param buttonList список кнопок
-     * @param set возвращаемый набор лего
-     * @param currentIndex нужен для отображения количества страниц
-     * @param maxIndex нужен для отображения максимальной страницы
+     * @param buttonList list of buttons
+     * @param set lego set
+     * @param currentIndex is needed to display the number of pages
+     * @param maxIndex is needed to display the maximum page
      * @see Set
      */
     public CommandSearchResponse(List<Button> buttonList, Set set, int currentIndex, int maxIndex) {
@@ -38,12 +38,10 @@ public class CommandSearchResponse {
     }
 
     /**
-     * Кнопки для отображения в чате.
-     * Некоторые из них могут быть активированными или нет,
-     * в зависимости от того,
-     * где находится курсор.
-     *
-     * @return список корректных кнопок
+     * Buttons to display in chat.
+     * Some of them may or may not be activated,
+     * depending on, where the cursor is located.
+     * @return list of valid buttons
      */
     public List<Button> getButtonList() {
         return buttonList;

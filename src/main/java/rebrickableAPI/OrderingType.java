@@ -1,9 +1,9 @@
 package rebrickableAPI;
 
 /**
- * Тип сортировки наборов.
+ * Type of set sorting.
  * <p>
- * Необходим для запросов к <a href="https://rebrickable.com/api/v3/docs/">rebrickable API</a>
+ * Required for requests to the <a href="https://rebrickable.com/api/v3/docs/">rebrickable API</a>.
  */
 public enum OrderingType {
     YEAR("year"),
@@ -20,11 +20,11 @@ public enum OrderingType {
     }
 
     /**
-     * Выдает тип по названию
+     * Gives the type by name.
      *
-     * @param jsonProperty название свойства
-     * @throws RuntimeException если не правильное название свойства
-     * @return тип для сортировки
+     * @param jsonProperty property name
+     * @throws RuntimeException if the property name is not correct
+     * @return sorting object
      */
     public static OrderingType getOrderingTypeFromString(String jsonProperty) {
         return switch (jsonProperty) {

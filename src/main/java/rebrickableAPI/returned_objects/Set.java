@@ -5,8 +5,8 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 /**
- * Представляет собой лего набор.
- * Является контейнером данных
+ * Represents a lego set.
+ * Is a data container.
  */
 public class Set {
 
@@ -116,10 +116,10 @@ public class Set {
     }
 
     /**
-     * Дает набор по json объекту
+     * Gives a set from a json object.
      *
-     * @param jsonObject объект с параметрами set_num, name, year, theme_id, num_parts, set_img_url, set_url, last_modified_dt.
-     *                   Пример last_modified_dt: 2023-04-23T10:54:36.190875Z
+     * @param jsonObject object with parameters set_num, name, year, theme_id, num_parts, set_img_url, set_url, last_modified_dt.
+     *                   example last_modified_dt: 2023-04-23T10:54:36.190875Z
      * @return возвращает уже заполненный объект набора
      */
     public static Set getSetFromJSONObject(JSONObject jsonObject) {

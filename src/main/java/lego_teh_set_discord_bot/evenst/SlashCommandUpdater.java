@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Обновляет список слэш-команд у discord бота.
- * Также добавляет аргументы в команды.
+ * Updates the list of slash commands in discord bot.
+ * Also adds arguments to the commands.
  */
 public class SlashCommandUpdater extends ListenerAdapter {
 

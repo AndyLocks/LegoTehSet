@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.example.Main
 
 /**
- * Считает количество гильдий, на которых находится бот.
+ * Counts the number of guilds the bot is on and displays in the bot's profile.
  */
 class GuildsCounter : ListenerAdapter() {
 

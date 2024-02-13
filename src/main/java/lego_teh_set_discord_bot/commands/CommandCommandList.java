@@ -7,11 +7,11 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 /**
- * Класс для прослушки команды command_list.
- * Выводит список всех команд в чат.
+ * Class for listening to the command "command_list".
+ * Outputs a list of all commands to the chat.
  * <p>
- * Этот класс нужен для {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}
- * Этот класс реализует {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}
+ * This class is for {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
+ * This class implements {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}.
  */
 public class CommandCommandList extends ListenerAdapter {
 

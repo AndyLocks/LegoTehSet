@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Делает запросы к серверам rebrickable
+ * Makes requests to rebrickable servers.
  * <p>
- * Является бином spring framework
- * <a href="https://rebrickable.com/api/v3/docs/">Документация rebrickable API</a>
+ * It's a bean spring framework.
+ * <a href="https://rebrickable.com/api/v3/docs/">rebrickable API</a>
  */
 @Component
 public class RebrickableAPIGetter {
@@ -83,9 +83,9 @@ public class RebrickableAPIGetter {
     }
 
     /**
-     * Случайный набор из базы данных
+     * Random set from the database.
      *
-     * @return случайный набор
+     * @return random set
      * @see Set
      */
     public Set getRundomSet() {
@@ -120,10 +120,10 @@ public class RebrickableAPIGetter {
     }
 
     /**
-     * Случайный набор из базы данных
+     * Random set from the database.
      *
-     * @param theme тематика набора
-     * @return случайный набор
+     * @param theme lego set theme
+     * @return random lego set
      * @see Theme
      * @see Set
      */
@@ -161,10 +161,10 @@ public class RebrickableAPIGetter {
     }
 
     /**
-     * Все наборы найденные по запросу
+     * All sets found by request.
      *
-     * @param search запрос для поиска
-     * @return список всех наборов
+     * @param search search request
+     * @return set list
      * @see Set
      */
     public List<Set> getSearchResult(String search) {
@@ -173,11 +173,11 @@ public class RebrickableAPIGetter {
     }
 
     /**
-     * Все наборы найденные по запросу
+     * All sets found by request.
      *
-     * @param search запрос для поиска
-     * @param orderingType тип для сортировки
-     * @return список всех наборов
+     * @param search search request
+     * @param orderingType sort type
+     * @return set list
      * @see Set
      * @see OrderingType
      */
