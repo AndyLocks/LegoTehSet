@@ -70,7 +70,7 @@ public class SearchCommandHandlerTest {
                 485,
                 "https://cdn.rebrickable.com/media/sets/75893-1/15770.jpg",
                 "https://rebrickable.com/sets/75893-1/2018-dodge-challenger-srt-demon-and-1970-dodge-charger-rt/",
-                "2019-01-20T15:42:38.388881Z"
+                "2024-01-13T21:32:29.557004Z"
         );
 
         CommandSearchResponse commandSearchResponse = new CommandSearchResponse(Arrays.asList(
