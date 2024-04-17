@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 /**
  * Search command handler.
@@ -33,6 +30,19 @@ public class SearchCommandHandler {
     private final Button arrowBackwardButton = Button.secondary("search_arrow_backward", Emoji.fromFormatted("<:arrow_backward_lts:1156919033497657345>"));
     private final Button arrowForwardButton = Button.secondary("search_arrow_forward", Emoji.fromFormatted("<:arrow_forward_lts:1156918988572475455>"));
     private final Button pageButton = Button.secondary("search_text_input_button", "page");
+
+    static {
+        LOGGER.setLevel(Level.FINE);
+        try{
+            FileHandler fileHandler = new FileHandler("/home/illia/IdeaProjects/LegoTehSet/search.log");
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.addHandler(new ConsoleHandler());
+        }
+        catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
 
     /**
      * Get actual buttons.
@@ -67,18 +77,6 @@ public class SearchCommandHandler {
         LOGGER.log(Level.FINE, "full_search_right: Message Hash Map size: {0}", setsContainerMap.size());
 
         return buttonList;
-    }
-
-    public SearchCommandHandler() {
-        LOGGER.setLevel(Level.FINE);
-        try{
-            FileHandler fileHandler = new FileHandler("/home/illia/IdeaProjects/LegoTehSet/search.log");
-            fileHandler.setFormatter(new SimpleFormatter());
-            LOGGER.addHandler(fileHandler);
-        }
-        catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 
     /**
