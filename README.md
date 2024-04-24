@@ -43,4 +43,4 @@ This bot automates the search and speeds it up. Using one command, you can reque
 
 ___
 
-<a src="https://discord.com/oauth2/authorize?client_id=1015539392393252924">Authorization</a>
+<a href="https://discord.com/oauth2/authorize?client_id=1015539392393252924">Authorization</a>
