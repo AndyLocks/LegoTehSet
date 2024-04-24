@@ -40,3 +40,7 @@ This bot automates the search and speeds it up. Using one command, you can reque
 ## Lego API
 [Rebrickable](https://rebrickable.com/api/)
 > Rebrickable provides a number of API/Web Services to assist developers build their own websites or apps which use the Rebrickable database.
+
+___
+
+<a src="https://discord.com/oauth2/authorize?client_id=1015539392393252924">Authorization</a>
