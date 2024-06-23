@@ -33,15 +33,7 @@ public class SearchCommandHandler {
 
     static {
         LOGGER.setLevel(Level.FINE);
-        try{
-            FileHandler fileHandler = new FileHandler("/home/illia/IdeaProjects/LegoTehSet/search.log");
-            fileHandler.setFormatter(new SimpleFormatter());
-            LOGGER.addHandler(fileHandler);
-            LOGGER.addHandler(new ConsoleHandler());
-        }
-        catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        LOGGER.addHandler(new ConsoleHandler());
     }
 
     /**
