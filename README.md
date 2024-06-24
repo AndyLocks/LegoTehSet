@@ -4,6 +4,8 @@
 [![discord](https://img.shields.io/badge/discord-blue?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)]()
 [![JDA](https://img.shields.io/badge/JDA-purple?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)](https://github.com/discord-jda/JDA)
 [![rebrickable](https://img.shields.io/badge/Rebrickable-orange?style=for-the-badge&logoColor=white&label=Lego%20API&labelColor=black)](https://rebrickable.com/api/)
+
+[![invite](https://img.shields.io/badge/Bot-red?style=for-the-badge&logoColor=white&label=Invite&labelColor=black)](https://discord.com/oauth2/authorize?client_id=1015539392393252924)
 <p align="center"><img src="https://cdn.discordapp.com/app-icons/1015539392393252924/6838c1cfa6cf3d73cc5a0d37991e4d13.png"></p>
 
 ***<p align="center">A bot that will help you find lego sets directly in discord chat</p>***
@@ -41,6 +43,30 @@ This bot automates the search and speeds it up. Using one command, you can reque
 [Rebrickable](https://rebrickable.com/api/)
 > Rebrickable provides a number of API/Web Services to assist developers build their own websites or apps which use the Rebrickable database.
 
-___
-
+## Invite the bot
 <a href="https://discord.com/oauth2/authorize?client_id=1015539392393252924">Authorization</a>
+
+## Build
+How to run a bot locally on your computer
+
+### Clone this repository
+```bash
+git clone https://github.com/AndyLocks/LegoTehSet
+```
+
+### Configuration
+ 1. Rename `.env.example` to `.env`
+ 2. Write a discord bot token in the `TOKEN` column
+
+    Example: `TOKEN=asSkDSfjwDebt.AbobAkdkjdOnbwdslkfjwelkhfgnkoAJSsdDasdWdHKPjsdkfhn.LKDSJlksdflkjDFlksdjf`
+ 4. Write a [Rebrickable api](https://rebrickable.com/api/) token in the `REBRICKABLE_API_KEY` column
+
+### Install docker and docker compose
+Here you can read how to install [Docker compose](https://docs.docker.com/compose/install/).
+
+Here you can read how to install [Docker engine](https://docs.docker.com/engine/install/).
+
+### Run project
+```bash
+docker compose up --build
+```
