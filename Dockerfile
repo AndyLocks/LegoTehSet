@@ -1,18 +1,11 @@
-FROM maven as build
-
-COPY . .
-
-RUN mvn clean package 
-
-
-FROM bellsoft/liberica-openjdk-debian:17
-
-RUN adduser --system spring-boot && addgroup --system spring-boot && adduser spring-boot spring-boot
-USER spring-boot
+FROM openjdk:22
 
 WORKDIR /app
 
-COPY --from=build target target
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+
+COPY src ./src
 COPY .env .env
 
-ENTRYPOINT ["java", "-jar", "target/LegoTehSet-1.4.2.jar"]
+ENTRYPOINT ["./mvnw", "spring-boot:run"]

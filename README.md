@@ -16,27 +16,27 @@
 This bot automates the search and speeds it up. Using one command, you can request several Lego sets at once directly in the discord chat.
 ## Commands
 - **search** - show all found sets by request
-  
+
   ![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/87ea057b-229a-49a7-9e58-6b114b7e2a64)
 
   There are arrows for scrolling.
-  
+
   ![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/e4cb5635-cf8e-4ca1-9236-d47d0246a007)
 
   The page button helps you enter the desired page
-  
+
   ![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/a78f588e-13ba-4cef-ba62-257e0a7b5fe7)
 
   There is also a sorting option
-  
+
   ![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/ce3e4156-10e7-4407-8318-940a391ddde8)
 
-- **random** - get random set 
-  
+- **random** - get random set
+
   ![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/49b5c6f0-11d5-412b-b3d3-8ec3703216a7)
 
-  It is possible to choose the theme of the set  
-  
+  It is possible to choose the theme of the set
+
   ![изображение](https://github.com/AndyLocks/LegoTehSet/assets/112815007/a359144b-a8cb-4796-8680-8c342b0ac941)
 
 ## Lego API
@@ -55,11 +55,11 @@ git clone https://github.com/AndyLocks/LegoTehSet
 ```
 
 ### Configuration
- 1. Rename `.env.example` to `.env`
- 2. Write a discord bot token in the `TOKEN` column
+1. Rename `.env.example` to `.env`
+2. Write a discord bot token in the `TOKEN` column
 
-    Example: `TOKEN=asSkDSfjwDebt.AbobAkdkjdOnbwdslkfjwelkhfgnkoAJSsdDasdWdHKPjsdkfhn.LKDSJlksdflkjDFlksdjf`
- 4. Write a [Rebrickable api](https://rebrickable.com/api/) token in the `REBRICKABLE_API_KEY` column
+   Example: `TOKEN=asSkDSfjwDebt.AbobAkdkjdOnbwdslkfjwelkhfgnkoAJSsdDasdWdHKPjsdkfhn.LKDSJlksdflkjDFlksdjf`
+3. Write a [Rebrickable api](https://rebrickable.com/api/) token in the `REBRICKABLE_API_KEY` column
 
 ### Install docker and docker compose
 Here you can read how to install [Docker compose](https://docs.docker.com/compose/install/).

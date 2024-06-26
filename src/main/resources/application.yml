@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: lego_teh_set
+
+logging:
+  level:
+    root: info
