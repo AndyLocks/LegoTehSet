@@ -59,7 +59,7 @@ git clone https://github.com/AndyLocks/LegoTehSet
 2. Write a discord bot token in the `TOKEN` column
 
    Example: `TOKEN=asSkDSfjwDebt.AbobAkdkjdOnbwdslkfjwelkhfgnkoAJSsdDasdWdHKPjsdkfhn.LKDSJlksdflkjDFlksdjf`
-4. Write a [Rebrickable api](https://rebrickable.com/api/) token in the `REBRICKABLE_API_KEY` column
+3. Write a [Rebrickable api](https://rebrickable.com/api/) token in the `REBRICKABLE_API_KEY` column
 
 ### Install docker and docker compose
 Here you can read how to install [Docker compose](https://docs.docker.com/compose/install/).
