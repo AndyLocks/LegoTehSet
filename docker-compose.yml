@@ -1,9 +1,0 @@
-version: '3.9'
-
-services:
-  lts:
-    container_name: lego_teh_set
-    restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
