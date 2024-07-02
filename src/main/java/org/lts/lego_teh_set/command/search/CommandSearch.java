@@ -18,9 +18,12 @@ import org.slf4j.LoggerFactory;
  * A class to listen to the search command.
  * Outputs to chat a list of all found sets by request.
  * <p>
- * This class is for {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
- * This class implements {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)},
- * {@link #onButtonInteraction(ButtonInteractionEvent)}, {@link #onModalInteraction(ModalInteractionEvent)}.
+ * This class is for
+ * {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
+ * This class implements
+ * {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)},
+ * {@link #onButtonInteraction(ButtonInteractionEvent)},
+ * {@link #onModalInteraction(ModalInteractionEvent)}.
  */
 public class CommandSearch extends ListenerAdapter {
 
@@ -53,8 +56,7 @@ public class CommandSearch extends ListenerAdapter {
                 commandSearchResponse = this.searchCommandHandler.init(
                         search,
                         orderingType,
-                        event.getInteraction().getId()
-                );
+                        event.getInteraction().getId());
             } catch (EmptySetsContainerException e) {
                 event.replyEmbeds(EmbedBuilderCreator.getNullErrorEmbed().build()).setEphemeral(true).queue();
                 return;
@@ -63,9 +65,10 @@ public class CommandSearch extends ListenerAdapter {
             event.replyEmbeds(
                     EmbedBuilderCreator.getEmbedBuilder(commandSearchResponse.getCurrentSet())
                             .setTitle(
-                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1).append(" / ").append(commandSearchResponse.getMaxIndex()).toString()
-                            ).build()
-            ).addActionRow(commandSearchResponse.getButtonList()).queue();
+                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1)
+                                            .append(" / ").append(commandSearchResponse.getMaxIndex()).toString())
+                            .build())
+                    .addActionRow(commandSearchResponse.getButtonList()).queue();
         }
     }
 
@@ -82,12 +85,12 @@ public class CommandSearch extends ListenerAdapter {
             }
             event.editMessageEmbeds(
                     EmbedBuilderCreator.getEmbedBuilder(
-                                    commandSearchResponse.getCurrentSet()
-                            )
+                            commandSearchResponse.getCurrentSet())
                             .setTitle(
-                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1).append(" / ").append(commandSearchResponse.getMaxIndex()).toString()
-                            ).build()
-            ).setActionRow(commandSearchResponse.getButtonList()).queue();
+                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1)
+                                            .append(" / ").append(commandSearchResponse.getMaxIndex()).toString())
+                            .build())
+                    .setActionRow(commandSearchResponse.getButtonList()).queue();
         } else if (event.getComponentId().equals("search_arrow_backward")) {
             String interactionId = event.getMessage().getInteraction().getId();
             CommandSearchResponse commandSearchResponse;
@@ -99,12 +102,12 @@ public class CommandSearch extends ListenerAdapter {
             }
             event.editMessageEmbeds(
                     EmbedBuilderCreator.getEmbedBuilder(
-                                    commandSearchResponse.getCurrentSet()
-                            )
+                            commandSearchResponse.getCurrentSet())
                             .setTitle(
-                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1).append(" / ").append(commandSearchResponse.getMaxIndex()).toString()
-                            ).build()
-            ).setActionRow(commandSearchResponse.getButtonList()).queue();
+                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1)
+                                            .append(" / ").append(commandSearchResponse.getMaxIndex()).toString())
+                            .build())
+                    .setActionRow(commandSearchResponse.getButtonList()).queue();
         } else if (event.getComponentId().equals("search_first")) {
             String interactionId = event.getMessage().getInteraction().getId();
             CommandSearchResponse commandSearchResponse;
@@ -116,12 +119,12 @@ public class CommandSearch extends ListenerAdapter {
             }
             event.editMessageEmbeds(
                     EmbedBuilderCreator.getEmbedBuilder(
-                                    commandSearchResponse.getCurrentSet()
-                            )
+                            commandSearchResponse.getCurrentSet())
                             .setTitle(
-                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1).append(" / ").append(commandSearchResponse.getMaxIndex()).toString()
-                            ).build()
-            ).setActionRow(commandSearchResponse.getButtonList()).queue();
+                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1)
+                                            .append(" / ").append(commandSearchResponse.getMaxIndex()).toString())
+                            .build())
+                    .setActionRow(commandSearchResponse.getButtonList()).queue();
         } else if (event.getComponentId().equals("search_last")) {
             String interactionId = event.getMessage().getInteraction().getId();
             CommandSearchResponse commandSearchResponse;
@@ -133,12 +136,12 @@ public class CommandSearch extends ListenerAdapter {
             }
             event.editMessageEmbeds(
                     EmbedBuilderCreator.getEmbedBuilder(
-                                    commandSearchResponse.getCurrentSet()
-                            )
+                            commandSearchResponse.getCurrentSet())
                             .setTitle(
-                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1).append(" / ").append(commandSearchResponse.getMaxIndex()).toString()
-                            ).build()
-            ).setActionRow(commandSearchResponse.getButtonList()).queue();
+                                    new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1)
+                                            .append(" / ").append(commandSearchResponse.getMaxIndex()).toString())
+                            .build())
+                    .setActionRow(commandSearchResponse.getButtonList()).queue();
         }
 
         if (event.getComponentId().equals("search_text_input_button")) {
@@ -173,7 +176,8 @@ public class CommandSearch extends ListenerAdapter {
         int index = pageNumber - 1;
         CommandSearchResponse commandSearchResponse;
         try {
-            commandSearchResponse = this.searchCommandHandler.pageButtonInteraction(event.getMessage().getInteraction().getId(), index);
+            commandSearchResponse = this.searchCommandHandler
+                    .pageButtonInteraction(event.getMessage().getInteraction().getId(), index);
         } catch (EmptySetsContainerException e) {
             event.reply("I can't interact with this message, it's old").setEphemeral(true).queue();
             return;
@@ -183,11 +187,12 @@ public class CommandSearch extends ListenerAdapter {
         }
         event.getInteraction().editMessageEmbeds(
                 EmbedBuilderCreator.getEmbedBuilder(
-                                commandSearchResponse.getCurrentSet()
-                        )
+                        commandSearchResponse.getCurrentSet())
                         .setTitle(
-                                new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1).append(" / ").append(commandSearchResponse.getMaxIndex()).toString()
-                        ).build()
-        ).setActionRow(commandSearchResponse.getButtonList()).queue();
+                                new StringBuilder().append(commandSearchResponse.getCurrentIndex() + 1).append(" / ")
+                                        .append(commandSearchResponse.getMaxIndex()).toString())
+                        .build())
+                .setActionRow(commandSearchResponse.getButtonList()).queue();
     }
+
 }

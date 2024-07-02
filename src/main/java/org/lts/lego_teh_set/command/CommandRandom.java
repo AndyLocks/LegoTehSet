@@ -4,11 +4,12 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.lts.lego_teh_set.ApplicationContextProvider;
 import org.lts.lego_teh_set.component_creators.EmbedBuilderCreator;
-import org.lts.lego_teh_set.rebrickableAPI.RebrickableAPIGetter;
 import org.lts.lego_teh_set.rebrickableAPI.Theme;
 import org.lts.lego_teh_set.rebrickableAPI.exceptions.InvalidThemeId;
 import org.lts.lego_teh_set.rebrickableAPI.returned_objects.Set;
+import org.lts.lego_teh_set.repository.SetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,12 +17,15 @@ import org.slf4j.LoggerFactory;
  * Class for listening to the command "random".
  * Returns a random set.
  * <p>
- * This class is for {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
- * This class implements {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}.
+ * This class is for
+ * {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
+ * This class implements
+ * {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}.
  */
 public class CommandRandom extends ListenerAdapter {
 
-    private RebrickableAPIGetter rebrickableAPIGetter = RebrickableAPIGetter.getInstance();
+    private SetRepository setRepository = ApplicationContextProvider.getApplicationContext()
+            .getBean("setRepository", SetRepository.class);
     private final Logger LOGGER = LoggerFactory.getLogger(CommandRandom.class);
 
     @Override
@@ -39,15 +43,17 @@ public class CommandRandom extends ListenerAdapter {
 
             Set set;
             if (theme == null) {
-                set = this.rebrickableAPIGetter.getRundomSet();
+                set = this.setRepository.getRandomSet();
             } else
-                set = this.rebrickableAPIGetter.getRundomSet(theme);
+                set = this.setRepository.getRandomSet(theme);
 
-            LOGGER.info("Random command entry point with theme: {} and lego set: {} : {}", theme, set.getName(), set.getNumParts());
+            LOGGER.info("Random command entry point with theme: {} and lego set: {} : {}", theme, set.getName(),
+                    set.getNumParts());
 
             event.replyEmbeds(
-                    EmbedBuilderCreator.getEmbedBuilder(set).build()
-            ).addActionRow(Button.link(set.getSetUrl(), "Set on Rebrickable")).queue();
+                            EmbedBuilderCreator.getEmbedBuilder(set).build())
+                    .addActionRow(Button.link(set.getSetUrl(), "Set on Rebrickable")).queue();
         }
     }
+
 }

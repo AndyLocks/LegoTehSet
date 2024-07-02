@@ -69,4 +69,5 @@ public class EmbedBuilderCreator {
     public static EmbedBuilder getCommandListEmbedBuilder() {
         return EmbedBuilderCreator.embedBuilder;
     }
+
 }

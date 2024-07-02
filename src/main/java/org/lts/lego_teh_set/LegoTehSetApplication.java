@@ -51,19 +51,16 @@ public class LegoTehSetApplication {
 				GatewayIntent.GUILD_PRESENCES,
 				GatewayIntent.GUILD_VOICE_STATES,
 				GatewayIntent.MESSAGE_CONTENT,
-				GatewayIntent.SCHEDULED_EVENTS
-		);
+				GatewayIntent.SCHEDULED_EVENTS);
 
 		bot.addEventListeners(
-				new GuildsCounter(),
+                new GuildsCounter(),
 				new CommandCommandList(),
 				new CommandRandom(),
-				new CommandSearch()
-		);
+				new CommandSearch());
 
 		bot.addEventListeners(
-				new SlashCommandUpdater()
-		);
+				new SlashCommandUpdater());
 
 		bot.setMemberCachePolicy(MemberCachePolicy.ALL);
 		bot.setChunkingFilter(ChunkingFilter.ALL);

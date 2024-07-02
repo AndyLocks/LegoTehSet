@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
  * Class for listening to the command "command_list".
  * Outputs a list of all commands to the chat.
  * <p>
- * This class is for {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
- * This class implements {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}.
+ * This class is for
+ * {@link net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder}.
+ * This class implements
+ * {@link #onSlashCommandInteraction(SlashCommandInteractionEvent)}.
  */
 public class CommandCommandList extends ListenerAdapter {
 
@@ -24,8 +26,7 @@ public class CommandCommandList extends ListenerAdapter {
             LOGGER.info("Command list command entry point");
 
             event.replyEmbeds(
-                    EmbedBuilderCreator.getCommandListEmbedBuilder().build()
-            ).queue();
+                    EmbedBuilderCreator.getCommandListEmbedBuilder().build()).queue();
         }
     }
 

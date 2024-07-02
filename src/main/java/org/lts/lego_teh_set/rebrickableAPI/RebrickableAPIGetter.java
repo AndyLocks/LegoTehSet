@@ -5,6 +5,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lts.lego_teh_set.rebrickableAPI.returned_objects.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,13 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Makes requests to rebrickable servers.
+ * Makes requests to Rebrickable API.
  * <p>
- * It's a bean spring framework.
- * <a href="https://rebrickable.com/api/v3/docs/">rebrickable API</a>
+ * <a href="https://rebrickable.com/api/v3/docs/">Rebrickable API</a>
  */
 public class RebrickableAPIGetter {
 
+    private final Logger LOG = LoggerFactory.getLogger(RebrickableAPIGetter.class);
     private static RebrickableAPIGetter instance;
 
     /**
@@ -41,7 +43,8 @@ public class RebrickableAPIGetter {
         }
     }
 
-    private RebrickableAPIGetter() {}
+    private RebrickableAPIGetter() {
+    }
 
     private JSONObject getJSONObjectFromUrl(String urlSearch) {
         Dotenv config = Dotenv.configure().load();
@@ -49,7 +52,7 @@ public class RebrickableAPIGetter {
 
         StringBuilder response;
 
-        try{
+        try {
             URL url = new URL(urlSearch);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -63,8 +66,7 @@ public class RebrickableAPIGetter {
                 response.append(inputLine);
             }
             in.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return new JSONObject(response.toString());
@@ -87,10 +89,9 @@ public class RebrickableAPIGetter {
             set.setYear(jsonSet.getInt("year"));
             set.setThemeId(jsonSet.getInt("theme_id"));
             set.setNumParts(jsonSet.getInt("num_parts"));
-            try{
+            try {
                 set.setSetImageUrl(jsonSet.getString("set_img_url"));
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 set.setSetImageUrl(null);
             }
             set.setSetUrl(jsonSet.getString("set_url"));
@@ -107,14 +108,17 @@ public class RebrickableAPIGetter {
      * @return random set
      * @see Set
      */
-    public Set getRundomSet() {
-        JSONObject jsonResponseObject = this.getJSONObjectFromUrl("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1");
+    public Set getRandomSet() {
+        JSONObject jsonResponseObject = this
+                .getJSONObjectFromUrl("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1");
 
         int setsCount = jsonResponseObject.getInt("count");
 
         int randomSetNum = (int) ((Math.random() * (setsCount - 1)) + 1);
 
-        JSONObject jsonResponseObject2 = this.getJSONObjectFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum).append("&page_size=1").toString());
+        JSONObject jsonResponseObject2 = this
+                .getJSONObjectFromUrl(new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=")
+                        .append(randomSetNum).append("&page_size=1").toString());
         JSONArray jsonSets = jsonResponseObject2.getJSONArray("results");
 
         Set set = new Set();
@@ -126,10 +130,9 @@ public class RebrickableAPIGetter {
         set.setYear(jsonSet.getInt("year"));
         set.setThemeId(jsonSet.getInt("theme_id"));
         set.setNumParts(jsonSet.getInt("num_parts"));
-        try{
+        try {
             set.setSetImageUrl(jsonSet.getString("set_img_url"));
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             set.setSetImageUrl(null);
         }
         set.setSetUrl(jsonSet.getString("set_url"));
@@ -146,15 +149,16 @@ public class RebrickableAPIGetter {
      * @see Theme
      * @see Set
      */
-    public Set getRundomSet(Theme theme) {
-        String themeUrl = new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1").append("&theme_id=").append(theme.getThemeId()).toString();
+    public Set getRandomSet(Theme theme) {
+        String themeUrl = new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=1&page_size=1")
+                .append("&theme_id=").append(theme.getThemeId()).toString();
         JSONObject jsonObject = this.getJSONObjectFromUrl(themeUrl);
         int setsCount = jsonObject.getInt("count");
         int randomSetNum = (int) ((Math.random() * (setsCount - 1)) + 1);
 
         JSONObject jsonObject1 = this.getJSONObjectFromUrl(
-                new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum).append("&page_size=1&theme_id=").append(theme.getThemeId()).toString()
-        );
+                new StringBuilder("https://rebrickable.com/api/v3/lego/sets/?page=").append(randomSetNum)
+                        .append("&page_size=1&theme_id=").append(theme.getThemeId()).toString());
 
         JSONArray jsonSets = jsonObject1.getJSONArray("results");
 
@@ -167,10 +171,9 @@ public class RebrickableAPIGetter {
         set.setYear(jsonSet.getInt("year"));
         set.setThemeId(jsonSet.getInt("theme_id"));
         set.setNumParts(jsonSet.getInt("num_parts"));
-        try{
+        try {
             set.setSetImageUrl(jsonSet.getString("set_img_url"));
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             set.setSetImageUrl(null);
         }
         set.setSetUrl(jsonSet.getString("set_url"));
@@ -194,7 +197,7 @@ public class RebrickableAPIGetter {
     /**
      * All sets found by request.
      *
-     * @param search search request
+     * @param search       search request
      * @param orderingType sort type
      * @return set list
      * @see Set
@@ -208,4 +211,5 @@ public class RebrickableAPIGetter {
                 .append(search)
                 .toString());
     }
+
 }

@@ -2,7 +2,6 @@ package org.lts.lego_teh_set.evenst;
 
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -54,21 +53,22 @@ public class SlashCommandUpdater extends ListenerAdapter {
                 Commands.slash("command_list", "command list")
         );
 
-        commandData.add(
-                Commands.context(Command.Type.MESSAGE, "set")
-        );
+//        commandData.add(
+//                Commands.context(Command.Type.MESSAGE, "set")
+//        );
 
         commandData.add(
                 Commands.slash("random", "get random set")
                         .addOptions(theme)
         );
 
-        commandData.add(
-                Commands.context(Command.Type.MESSAGE, "full_search")
-        );
+//        commandData.add(
+//                Commands.context(Command.Type.MESSAGE, "full_search")
+//        );
 
         event.getJDA().updateCommands().addCommands(
                 commandData
         ).queue();
     }
+
 }
