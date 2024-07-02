@@ -1,6 +1,5 @@
 package org.lts.lego_teh_set.rebrickableAPI;
 
-
 import org.lts.lego_teh_set.rebrickableAPI.exceptions.InvalidThemeName;
 import org.lts.lego_teh_set.rebrickableAPI.exceptions.InvalidThemeId;
 
@@ -21,8 +20,10 @@ public enum Theme {
     DUPLO("Duplo", 504),
     MINECRAFT("Minecraft", 577),
     CITY("City", 52);
+
     private final int themeId;
     private final String themeName;
+
     Theme(String themeName, int themeId) {
         this.themeName = themeName;
         this.themeId = themeId;
@@ -31,7 +32,9 @@ public enum Theme {
     /**
      * Gives the theme of the lego set by id.
      *
-     * @param themeId theme ID in the <a href="https://rebrickable.com/api/v3/docs/">rebrickable database</a>
+     * @param themeId theme ID in the
+     *                <a href="https://rebrickable.com/api/v3/docs/">rebrickable
+     *                database</a>
      * @return gives a theme
      * @throws InvalidThemeId if the theme is not found by ID
      */
@@ -84,7 +87,11 @@ public enum Theme {
                 '}';
     }
 
+    /**
+     * @return normal name like {@code Technic} or {@code City}
+     */
     public String getThemeName() {
         return themeName;
     }
+
 }

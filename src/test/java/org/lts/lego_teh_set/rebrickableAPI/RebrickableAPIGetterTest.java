@@ -3,12 +3,14 @@ package org.lts.lego_teh_set.rebrickableAPI;
 import org.junit.Before;
 import org.junit.Test;
 import org.lts.lego_teh_set.rebrickableAPI.returned_objects.Set;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+@SpringBootTest
 public class RebrickableAPIGetterTest {
 
     private RebrickableAPIGetter rebrickableAPIGetter;
@@ -236,7 +238,7 @@ public class RebrickableAPIGetterTest {
 
     @Test
     public void random_set_test() {
-        Set set = this.rebrickableAPIGetter.getRundomSet();
+        Set set = this.rebrickableAPIGetter.getRandomSet();
 
         System.out.println(set.getSetNum());
         System.out.println(set.getName());
@@ -250,7 +252,7 @@ public class RebrickableAPIGetterTest {
 
     @Test
     public void random_set_with_theme_test() {
-        Set set = this.rebrickableAPIGetter.getRundomSet(Theme.TECHNIC);
+        Set set = this.rebrickableAPIGetter.getRandomSet(Theme.TECHNIC);
         System.out.println(set.getSetNum());
         System.out.println(set.getName());
         System.out.println(set.getThemeId());
@@ -261,7 +263,7 @@ public class RebrickableAPIGetterTest {
         System.out.println(set.getNumParts());
         assertEquals(set.getThemeId(), 1);
 
-        Set set2 = this.rebrickableAPIGetter.getRundomSet(Theme.CITY);
+        Set set2 = this.rebrickableAPIGetter.getRandomSet(Theme.CITY);
         System.out.println(set2.getSetNum());
         System.out.println(set2.getName());
         System.out.println(set2.getThemeId());

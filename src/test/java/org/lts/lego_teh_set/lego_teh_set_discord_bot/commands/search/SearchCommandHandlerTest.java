@@ -4,15 +4,20 @@ import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.lts.lego_teh_set.command.search.CommandSearchResponse;
 import org.lts.lego_teh_set.command.search.EmptySetsContainerException;
 import org.lts.lego_teh_set.command.search.SearchCommandHandler;
 import org.lts.lego_teh_set.rebrickableAPI.returned_objects.Set;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class SearchCommandHandlerTest {
 
     private final String globalInteractionId = "test_1";

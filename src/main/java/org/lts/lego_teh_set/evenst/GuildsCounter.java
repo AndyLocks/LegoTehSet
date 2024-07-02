@@ -13,9 +13,7 @@ public class GuildsCounter extends ListenerAdapter {
         LegoTehSetApplication.getShard().setActivity(
                 Activity.watching(
                         String.format("%s Guilds", LegoTehSetApplication.getShard()
-                                .getGuilds().size())
-                )
-        );
+                                .getGuilds().size())));
     }
 
     @Override

@@ -1,14 +1,17 @@
 package org.lts.lego_teh_set.rebrickableAPI.returned_objects;
 
 import org.json.JSONObject;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Represents a lego set.
  * Is a data container.
  */
-public class Set {
+@RedisHash(value = "set")
+public class Set implements Serializable {
 
     private String setNum;
     private String name;
@@ -19,7 +22,7 @@ public class Set {
     private String setUrl;
     private String lastModifiedDate;
 
-    public Set(){
+    public Set() {
     }
 
     public Set(String setNum, String name,
@@ -104,10 +107,15 @@ public class Set {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Set set = (Set) o;
-        return year == set.year && themeId == set.themeId && numParts == set.numParts && Objects.equals(setNum, set.setNum) && Objects.equals(name, set.name) && Objects.equals(setImageUrl, set.setImageUrl) && Objects.equals(setUrl, set.setUrl) && Objects.equals(lastModifiedDate, set.lastModifiedDate);
+        return year == set.year && themeId == set.themeId && numParts == set.numParts
+                && Objects.equals(setNum, set.setNum) && Objects.equals(name, set.name)
+                && Objects.equals(setImageUrl, set.setImageUrl) && Objects.equals(setUrl, set.setUrl)
+                && Objects.equals(lastModifiedDate, set.lastModifiedDate);
     }
 
     @Override
@@ -118,7 +126,8 @@ public class Set {
     /**
      * Gives a set from a json object.
      *
-     * @param jsonObject object with parameters set_num, name, year, theme_id, num_parts, set_img_url, set_url, last_modified_dt.
+     * @param jsonObject object with parameters set_num, name, year, theme_id,
+     *                   num_parts, set_img_url, set_url, last_modified_dt.
      *                   example last_modified_dt: 2023-04-23T10:54:36.190875Z
      * @return возвращает уже заполненный объект набора
      */
@@ -150,4 +159,5 @@ public class Set {
                 ", lastModifiedDate='" + lastModifiedDate + '\'' +
                 '}';
     }
+
 }

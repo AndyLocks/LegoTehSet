@@ -14,16 +14,17 @@ import java.util.Objects;
  * The response is requested by the {@link CommandSearch}.
  */
 public class CommandSearchResponse {
+
     private final List<Button> buttonList;
     private final Set set;
     private final int currentIndex;
     private final int maxIndex;
 
     /**
-     * @param buttonList list of buttons
-     * @param set lego set
+     * @param buttonList   list of buttons
+     * @param set          lego set
      * @param currentIndex is needed to display the number of pages
-     * @param maxIndex is needed to display the maximum page
+     * @param maxIndex     is needed to display the maximum page
      * @see Set
      */
     public CommandSearchResponse(List<Button> buttonList, Set set, int currentIndex, int maxIndex) {
@@ -41,6 +42,7 @@ public class CommandSearchResponse {
      * Buttons to display in chat.
      * Some of them may or may not be activated,
      * depending on, where the cursor is located.
+     *
      * @return list of valid buttons
      */
     public List<Button> getButtonList() {
@@ -57,10 +59,13 @@ public class CommandSearchResponse {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         CommandSearchResponse that = (CommandSearchResponse) o;
-        return currentIndex == that.currentIndex && maxIndex == that.maxIndex && Objects.equals(buttonList, that.buttonList) && Objects.equals(set, that.set);
+        return currentIndex == that.currentIndex && maxIndex == that.maxIndex
+                && Objects.equals(buttonList, that.buttonList) && Objects.equals(set, that.set);
     }
 
     @Override
@@ -77,4 +82,5 @@ public class CommandSearchResponse {
                 ", maxIndex=" + maxIndex +
                 '}';
     }
+
 }

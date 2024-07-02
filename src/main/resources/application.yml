@@ -5,3 +5,7 @@ spring:
 logging:
   level:
     root: info
+
+redis:
+  host: 'redis'
+  port: 6379
