@@ -3,7 +3,7 @@ version: '3.9'
 services:
   lts:
     container_name: lego_teh_set
-    restart: no
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,7 +15,7 @@ services:
 
   redis:
     image: redis
-    restart: no
+    restart: always
     container_name: lts-redis-container
     command: redis-server
     volumes:
