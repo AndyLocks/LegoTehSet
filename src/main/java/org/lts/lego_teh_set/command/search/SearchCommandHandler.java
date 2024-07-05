@@ -25,13 +25,13 @@ public class SearchCommandHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchCommandHandler.class);
     private final ConcurrentMap<String, SetsContainer> setsContainerMap = new ConcurrentHashMap<>();
     private final Button firstButton = Button.secondary("search_first",
-            Emoji.fromFormatted("<:rewind_lts:1156918918103965716>"));
+            Emoji.fromFormatted("<:rewind_lts:1258860938904338432>"));
     private final Button lastButton = Button.secondary("search_last",
-            Emoji.fromFormatted("<:fast_forward_lts:1156830249250725948>"));
+            Emoji.fromFormatted("<:fast_forward_lts:1258860751771275349>"));
     private final Button arrowBackwardButton = Button.secondary("search_arrow_backward",
-            Emoji.fromFormatted("<:arrow_backward_lts:1156919033497657345>"));
+            Emoji.fromFormatted("<:arrow_backward_lts:1258861195385901138>"));
     private final Button arrowForwardButton = Button.secondary("search_arrow_forward",
-            Emoji.fromFormatted("<:arrow_forward_lts:1156918988572475455>"));
+            Emoji.fromFormatted("<:arrow_forward_lts:1258861075022086145>"));
     private final Button pageButton = Button.secondary("search_text_input_button", "page");
     private SetRepository setRepository = ApplicationContextProvider.getApplicationContext()
             .getBean("setRepository", SetRepository.class);
