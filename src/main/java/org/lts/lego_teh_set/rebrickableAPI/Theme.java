@@ -3,12 +3,10 @@ package org.lts.lego_teh_set.rebrickableAPI;
 import org.lts.lego_teh_set.rebrickableAPI.exceptions.InvalidThemeName;
 import org.lts.lego_teh_set.rebrickableAPI.exceptions.InvalidThemeId;
 
-/**
- * A lego set's theme.
- * <p>
- * Not used in {@link org.lts.lego_teh_set.rebrickableAPI.returned_objects.Set}.
- * It is only needed for database requests.
- */
+/// A lego set's theme.
+///
+/// Not used in {@link org.lts.lego_teh_set.rebrickableAPI.dto.Set}.
+/// It is only needed for [Rebrickable API](https://rebrickable.com/api/v3/docs/).
 public enum Theme {
 
     TECHNIC("Technic", 1),
@@ -29,16 +27,12 @@ public enum Theme {
         this.themeId = themeId;
     }
 
-    /**
-     * Gives the theme of the lego set by id.
-     *
-     * @param themeId theme ID in the
-     *                <a href="https://rebrickable.com/api/v3/docs/">rebrickable
-     *                database</a>
-     * @return gives a theme
-     * @throws InvalidThemeId if the theme is not found by ID
-     */
-    public static Theme getThemeFromId(int themeId) throws InvalidThemeId {
+    /// Gives the theme of the lego set by id.
+    ///
+    /// @param themeId theme id in the [rebrickable database](https://rebrickable.com/api/v3/docs/)
+    /// @return gives a theme
+    /// @throws InvalidThemeId if the theme is not found by ID
+    public static Theme fromId(int themeId) throws InvalidThemeId {
         return switch (themeId) {
             case 1 -> TECHNIC;
             case 18 -> STAR_WARS;
@@ -53,14 +47,12 @@ public enum Theme {
         };
     }
 
-    /**
-     * Gives a theme by name.
-     *
-     * @param themeName theme name
-     * @return gives a theme
-     * @throws InvalidThemeName if the theme is not found by name
-     */
-    public static Theme getThemeFromName(String themeName) throws InvalidThemeName {
+    /// Gives a theme by name.
+    ///
+    /// @param themeName theme name
+    /// @return gives a theme
+    /// @throws InvalidThemeName if the theme is not found by name
+    public static Theme fromName(String themeName) throws InvalidThemeName {
         return switch (themeName) {
             case "Technic" -> TECHNIC;
             case "Star Wars" -> STAR_WARS;
@@ -79,19 +71,17 @@ public enum Theme {
         return themeId;
     }
 
+    /// @return normal name like `Technic` or `City`
+    public String getThemeName() {
+        return themeName;
+    }
+
     @Override
     public String toString() {
         return "Theme{" +
                 "themeId=" + themeId +
                 ", themeName='" + themeName + '\'' +
                 '}';
-    }
-
-    /**
-     * @return normal name like {@code Technic} or {@code City}
-     */
-    public String getThemeName() {
-        return themeName;
     }
 
 }
