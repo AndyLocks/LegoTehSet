@@ -28,13 +28,12 @@ public enum OrderingType {
     /// @throws RuntimeException if the property name is not correct
     @Contract("null -> null")
     public static OrderingType fromJsonProperty(String jsonProperty) {
-        return switch (jsonProperty) {
-            case "year" -> YEAR;
-            case "name" -> NAME;
-            case "num_parts" -> NUM_PARTS;
-            case null -> null;
-            default -> throw new RuntimeException("Invalid value");
-        };
+        if (jsonProperty == null) return null;
+
+        for (var orderingType: values())
+            if (orderingType.getJsonProperty().equals(jsonProperty)) return orderingType;
+
+        throw new RuntimeException("Invalid value");
     }
 
     @Override
