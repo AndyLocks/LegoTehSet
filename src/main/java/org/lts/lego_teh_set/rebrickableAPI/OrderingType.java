@@ -1,11 +1,10 @@
 package org.lts.lego_teh_set.rebrickableAPI;
 
-/**
- * Type of set sorting.
- * <p>
- * Required for requests to the
- * <a href="https://rebrickable.com/api/v3/docs/">rebrickable API</a>.
- */
+import org.jetbrains.annotations.Contract;
+
+/// Type of set sorting.
+///
+/// Required for requests to the [rebrickable API](https://rebrickable.com/api/v3/docs/)
 public enum OrderingType {
 
     YEAR("year"),
@@ -22,18 +21,18 @@ public enum OrderingType {
         return this.jsonProperty;
     }
 
-    /**
-     * Gives the type by name.
-     *
-     * @param jsonProperty property name
-     * @return sorting object
-     * @throws RuntimeException if the property name is not correct
-     */
-    public static OrderingType getOrderingTypeFromString(String jsonProperty) {
+    /// Gives the type by name.
+    ///
+    /// @param jsonProperty property name
+    /// @return sorting object, null if the argument is null
+    /// @throws RuntimeException if the property name is not correct
+    @Contract("null -> null")
+    public static OrderingType fromJsonProperty(String jsonProperty) {
         return switch (jsonProperty) {
             case "year" -> YEAR;
             case "name" -> NAME;
             case "num_parts" -> NUM_PARTS;
+            case null -> null;
             default -> throw new RuntimeException("Invalid value");
         };
     }
