@@ -1,4 +1,4 @@
-package org.lts.lego_teh_set.config;
+package org.lts.lego_teh_set.config.redis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +11,43 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.time.Duration;
+import java.util.function.Function;
 
 @Configuration
 @EnableCaching
 public class CacheConfig {
+
+    /// Function for generating a global key prefix for the whole application
+    ///
+    /// ### Example
+    ///
+    /// ```
+    /// lts:...
+    ///```
+    ///
+    /// In this case `...` is continuations of the global key.
+    /// This function should be composed with others to produce more accurate keys.
+    ///
+    /// #### Example
+    ///
+    /// ```java
+    /// public static final Function<String, String> ABSTRACT_CONTAINER_KEY_GENERATOR =
+    ///     CacheConfig.GLOBAL_KEY_GENERATOR.compose(s -> String.format("container:%s", s));
+    /// ```
+    ///
+    /// Result:
+    ///
+    /// ```
+    /// lts:container:3494023849908989899
+    /// ```
+    ///
+    /// # Implementations example
+    ///
+    /// - {@link AbstractContainerTemplateConfig#ABSTRACT_CONTAINER_KEY_GENERATOR}
+    /// - {@link SetRedisTemplateConfig#SET_KEY_GENERATOR}
+    public static final Function<String, String> GLOBAL_KEY_GENERATOR = s -> String.format("lts:%s", s);
 
     @Value("${redis.host}")
     private String redisServer;
@@ -35,15 +65,6 @@ public class CacheConfig {
 
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(redisServer, redisPort);
         return new JedisConnectionFactory(configuration);
-    }
-
-    @Bean
-    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-
-        var redisTemplate = new RedisTemplate<byte[], byte[]>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-
-        return redisTemplate;
     }
 
     @Bean
