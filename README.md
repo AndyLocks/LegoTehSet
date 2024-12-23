@@ -1,11 +1,11 @@
 # Lego Teh Set
 
-[![gpl](https://img.shields.io/badge/gpl-yellow?style=for-the-badge&label=license&labelColor=black)](https://github.com/AndyLocks/LegoTehSet/blob/master/LICENSE)
-[![discord](https://img.shields.io/badge/discord-blue?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)]()
-[![JDA](https://img.shields.io/badge/JDA-purple?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)](https://github.com/discord-jda/JDA)
-[![rebrickable](https://img.shields.io/badge/Rebrickable-orange?style=for-the-badge&logoColor=white&label=Lego%20API&labelColor=black)](https://rebrickable.com/api/)
+[![gpl](https://img.shields.io/badge/gpl-f9e2af?style=for-the-badge&label=license&labelColor=black)](https://github.com/AndyLocks/LegoTehSet/blob/master/LICENSE)
+[![discord](https://img.shields.io/badge/discord-89b4fa?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)]()
+[![JDA](https://img.shields.io/badge/JDA-cba6f7?style=for-the-badge&logo=discord&logoColor=white&labelColor=black)](https://github.com/discord-jda/JDA)
+[![rebrickable](https://img.shields.io/badge/Rebrickable-fab387?style=for-the-badge&logoColor=white&label=Lego%20API&labelColor=black)](https://rebrickable.com/api/)
 
-[![invite](https://img.shields.io/badge/Bot-red?style=for-the-badge&logoColor=white&label=Invite&labelColor=black)](https://discord.com/oauth2/authorize?client_id=1015539392393252924)
+[![invite](https://img.shields.io/badge/Bot-f38ba8?style=for-the-badge&logoColor=white&label=Invite&labelColor=black)](https://discord.com/oauth2/authorize?client_id=1015539392393252924)
 <p align="center"><img src="https://cdn.discordapp.com/app-icons/1015539392393252924/6838c1cfa6cf3d73cc5a0d37991e4d13.png"></p>
 
 ***<p align="center">A bot that will help you find lego sets directly in discord chat</p>***
