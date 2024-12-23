@@ -33,18 +33,10 @@ public enum Theme {
     /// @return gives a theme
     /// @throws InvalidThemeId if the theme is not found by ID
     public static Theme fromId(int themeId) throws InvalidThemeId {
-        return switch (themeId) {
-            case 1 -> TECHNIC;
-            case 18 -> STAR_WARS;
-            case 22 -> CREATOR;
-            case 504 -> DUPLO;
-            case 577 -> MINECRAFT;
-            case 324 -> BIONICLE;
-            case 435 -> NINJAGO;
-            case 216 -> FRIENDS;
-            case 52 -> CITY;
-            default -> throw new InvalidThemeId("Invalid input");
-        };
+        for (var theme : values())
+            if (theme.getThemeId() == themeId) return theme;
+
+        throw new InvalidThemeId("Invalid input");
     }
 
     /// Gives a theme by name.
@@ -53,18 +45,10 @@ public enum Theme {
     /// @return gives a theme
     /// @throws InvalidThemeName if the theme is not found by name
     public static Theme fromName(String themeName) throws InvalidThemeName {
-        return switch (themeName) {
-            case "Technic" -> TECHNIC;
-            case "Star Wars" -> STAR_WARS;
-            case "Creator" -> CREATOR;
-            case "Bionicle" -> BIONICLE;
-            case "Ninjago" -> NINJAGO;
-            case "Minecraft" -> MINECRAFT;
-            case "Duplo" -> DUPLO;
-            case "Friends" -> FRIENDS;
-            case "City" -> CITY;
-            default -> throw new InvalidThemeName("Invalid input");
-        };
+        for (var theme : values())
+            if (theme.getThemeName().equals(themeName)) return theme;
+
+        throw new InvalidThemeName("Invalid input");
     }
 
     public int getThemeId() {
