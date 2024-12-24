@@ -33,3 +33,4 @@ build/
 .vscode/
 
 .env
+dump.rdb
