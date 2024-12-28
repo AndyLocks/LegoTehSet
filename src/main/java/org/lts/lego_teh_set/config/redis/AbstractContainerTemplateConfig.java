@@ -21,9 +21,9 @@ public class AbstractContainerTemplateConfig {
     ///
     /// ### Example
     ///
-    /// ``
+    /// ```
     /// lts:container:3494023849908989899
-    ///```
+    /// ```
     ///
     /// In this case `lts` is a global key prefix: {@link CacheConfig#GLOBAL_KEY_GENERATOR}
     ///
