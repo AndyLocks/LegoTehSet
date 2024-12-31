@@ -1,0 +1,33 @@
+syntax = "proto3";
+package org.lts;
+
+import "google/protobuf/empty.proto";
+
+message Set {
+  string number = 1;
+  string name = 2;
+  int32 year = 3;
+  int32 theme_id = 4;
+  int32 parts = 5;
+  string set_image_url = 6;
+  string set_url = 7;
+  string last_modified_date = 8;
+}
+
+message DiscordUser {
+  string id = 1;
+}
+
+message FavouriteSet {
+  Set set = 1;
+  DiscordUser discord_user_id = 2;
+}
+
+message FavouriteSets {
+  repeated FavouriteSet set = 1;
+}
+
+service ProfileHub {
+  rpc AddFavourite (FavouriteSet) returns (google.protobuf.Empty);
+  rpc GetAllFavourite (DiscordUser) returns (FavouriteSets);
+}
