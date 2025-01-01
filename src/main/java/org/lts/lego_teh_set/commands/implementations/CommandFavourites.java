@@ -14,6 +14,8 @@ import org.lts.lego_teh_set.commands.container.AbstractContainer;
 import org.lts.lego_teh_set.commands.container.implementations.CacheableLazyFavouritesContainer;
 import org.lts.lego_teh_set.config.redis.AbstractContainerTemplateConfig;
 import org.lts.lego_teh_set.repository.SetRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,7 @@ public class CommandFavourites extends ListenerAdapter implements CommandDataSup
     private final ProfileHubGrpc.ProfileHubBlockingStub profileHubBlockingStub;
     private final RedisTemplate<String, AbstractContainer> abstractContainerRedisTemplate;
     private final SetRepository setRepository;
+    private final Logger LOG = LoggerFactory.getLogger(CommandFavourites.class);
 
     @Autowired
     public CommandFavourites(ProfileHubGrpc.ProfileHubBlockingStub profileHubBlockingStub, RedisTemplate<String, AbstractContainer> abstractContainerRedisTemplate, SetRepository setRepository) {
@@ -54,6 +57,7 @@ public class CommandFavourites extends ListenerAdapter implements CommandDataSup
                     .getSetList();
         } catch (StatusRuntimeException e) {
             event.reply("Error: " + e.getMessage()).setEphemeral(true).queue();
+            LOG.error("Error during communication with [ProfileHub]", e);
             return;
         }
 
