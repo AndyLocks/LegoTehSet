@@ -30,7 +30,7 @@ logging:
       max-file-size: 5000000
 
 redis:
-  host: localhost
+  host: redis
   port: 6379
 
 grpc:
