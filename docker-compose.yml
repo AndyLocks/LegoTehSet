@@ -13,8 +13,8 @@ services:
     depends_on:
       - redis
 
-  profile_hub:
-    container_name: profile_hub
+  profile-hub:
+    container_name: profile-hub
     restart: always
     build:
       context: ./profile_hub
