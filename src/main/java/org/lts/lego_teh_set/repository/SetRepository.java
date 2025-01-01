@@ -59,7 +59,7 @@ public class SetRepository {
     /// @see Set
     public Collection<Set> search(String request) {
         LOG.debug("New search request: {}", request);
-        var redisKey = SetRedisTemplateConfig.SET_KEY_GENERATOR.apply(request);
+        var redisKey = SetRedisTemplateConfig.SET_LIST_KEY_GENERATOR.apply(request);
 
         var sets = setRedisTemplate.opsForList().range(redisKey, 0, -1);
 
@@ -72,6 +72,29 @@ public class SetRepository {
         }
 
         return sets;
+    }
+
+    /// Searches for exactly one set by its "rebrickable" id
+    ///
+    /// @param setNum specific identifier of "rebrickable" id
+    /// @return null if set was not found
+    public Set setFromId(String setNum) {
+        LOG.debug("Searching set with id: {}", setNum);
+        var redisKey = SetRedisTemplateConfig.SET_KEY_GENERATOR.apply(setNum);
+
+        var set = setRedisTemplate.opsForValue().get(redisKey);
+
+        if (set == null) {
+            set = rebrickableAPIGetter.setFromId(setNum);
+
+            if (set == null) return null;
+
+            setRedisTemplate.opsForValue().set(redisKey, set, SetRedisTemplateConfig.TTL_DURATION);
+
+            LOG.debug("Request [Searching set with id: {}] was cached", setNum);
+        }
+
+        return set;
     }
 
     /// All sets found by request.
@@ -90,7 +113,7 @@ public class SetRepository {
 
         LOG.debug("New search request: {} with {} order type", search, orderingType.getJsonProperty());
 
-        var redisKey = SetRedisTemplateConfig.SET_KEY_GENERATOR.apply(String.format("%s:%s", search, orderingType));
+        var redisKey = SetRedisTemplateConfig.SET_LIST_KEY_GENERATOR.apply(String.format("%s:%s", search, orderingType));
         var sets = setRedisTemplate.opsForList().range(redisKey, 0, -1);
 
         if (sets == null || sets.isEmpty()) {
