@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/// Starts {@link Server} (configuration: {@link org.lts.profile_hub.configuration.grpc.GrpcServerConfiguration}) and blocks main tread.
 @Component
 public class GrpcServerStarter implements CommandLineRunner {
 
