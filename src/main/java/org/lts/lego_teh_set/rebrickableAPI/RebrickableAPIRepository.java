@@ -5,6 +5,7 @@ import org.lts.lego_teh_set.rebrickableAPI.dto.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class RebrickableAPIRepository {
 
     private final Logger LOG = LoggerFactory.getLogger(RebrickableAPIRepository.class);
     private final String token;
-    private final RestClient restClient = RestClient.create("https://rebrickable.com/api/v3/");
+    private final RestClient restClient = RestClient.create("https://rebrickable.com/api/v3");
     private final Random random = new Random();
 
     public RebrickableAPIRepository(String token) {
@@ -28,7 +29,7 @@ public class RebrickableAPIRepository {
     /// @see Set
     public Set randomSet() {
         int count = restClient.get()
-                .uri("lego/sets/?page=1&page_size=1")
+                .uri("/lego/sets/?page=1&page_size=1")
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "key " + token)
                 .retrieve()
@@ -37,7 +38,7 @@ public class RebrickableAPIRepository {
                 .count();
 
         return restClient.get()
-                .uri("lego/sets/?page={page}&page_size=1", random.nextInt(count + 1))
+                .uri("/lego/sets/?page={page}&page_size=1", random.nextInt(count + 1))
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "key " + token)
                 .retrieve()
@@ -53,7 +54,7 @@ public class RebrickableAPIRepository {
     /// @see Set
     public Set randomSet(Theme theme) {
         int count = restClient.get()
-                .uri("lego/sets/?page=1&page_size=1&theme_id={theme}", theme.getThemeId())
+                .uri("/lego/sets/?page=1&page_size=1&theme_id={theme}", theme.getThemeId())
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "key " + token)
                 .retrieve()
@@ -62,7 +63,7 @@ public class RebrickableAPIRepository {
                 .count();
 
         return restClient.get()
-                .uri("lego/sets/?page={page}&page_size=1&theme_id={theme}", random.nextInt(count + 1), theme.getThemeId())
+                .uri("/lego/sets/?page={page}&page_size=1&theme_id={theme}", random.nextInt(count + 1), theme.getThemeId())
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "key " + token)
                 .retrieve()
@@ -77,7 +78,7 @@ public class RebrickableAPIRepository {
     /// @see Set
     public List<Set> search(String request) {
         return restClient.get()
-                .uri("lego/sets/?search={request}", request)
+                .uri("/lego/sets/?search={request}", request)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "key " + token)
                 .retrieve()
@@ -95,13 +96,31 @@ public class RebrickableAPIRepository {
     /// @see OrderingType
     public List<Set> search(String request, OrderingType orderingType) {
         return restClient.get()
-                .uri("lego/sets/?search={request}&ordering={ordering}", request, orderingType.getJsonProperty())
+                .uri("/lego/sets/?search={request}&ordering={ordering}", request, orderingType.getJsonProperty())
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "key " + token)
                 .retrieve()
                 .toEntity(Results.class)
                 .getBody()
                 .sets();
+    }
+
+    /// Searches for exactly one set by its "rebrickable" id
+    ///
+    /// @param setNum specific identifier of "rebrickable" id
+    /// @return null if set was not found
+    public Set setFromId(String setNum) {
+        try {
+            return restClient.get()
+                    .uri("/lego/sets/{setNum}/", setNum)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "key " + token)
+                    .retrieve()
+                    .toEntity(Set.class)
+                    .getBody();
+        } catch (HttpClientErrorException.NotFound _) {
+            return null;
+        }
     }
 
     private record Count(@JsonProperty("count") int count) {
