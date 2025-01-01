@@ -13,6 +13,22 @@ services:
     depends_on:
       - redis
 
+  profile_hub:
+    container_name: profile_hub
+    restart: always
+    build:
+      context: ./profile_hub
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lts
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=aboba
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - db
+      - redis
+
   redis:
     image: redis
     restart: always
@@ -21,6 +37,19 @@ services:
     volumes:
       - redis:/data
 
+  db:
+    image: postgres
+    container_name: postgres-container
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: aboba
+      POSTGRES_USER: postgres
+      POSTGRES_DB: lts
+    volumes:
+      - db:/var/lib/postgresql/data
+
 volumes:
   redis:
+    driver: local
+  db:
     driver: local
