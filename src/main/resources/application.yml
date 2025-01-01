@@ -9,5 +9,9 @@ logging:
     root: info
 
 redis:
-  host: 'redis'
+  host: redis
   port: 6379
+
+profile_hub:
+  host: localhost
+  port: 8081
