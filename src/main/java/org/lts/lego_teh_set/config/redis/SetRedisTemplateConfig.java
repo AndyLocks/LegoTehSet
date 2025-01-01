@@ -27,8 +27,12 @@ public class SetRedisTemplateConfig {
     /// In this case `lts` is a global key prefix: {@link CacheConfig#GLOBAL_KEY_GENERATOR}
     ///
     /// @see CacheConfig#GLOBAL_KEY_GENERATOR
+    public static final Function<String, String> SET_LIST_KEY_GENERATOR =
+            CacheConfig.GLOBAL_KEY_GENERATOR.compose(s -> String.format("set_list:%s", s));
+
     public static final Function<String, String> SET_KEY_GENERATOR =
             CacheConfig.GLOBAL_KEY_GENERATOR.compose(s -> String.format("set:%s", s));
+
 
     @Bean
     public RedisTemplate<String, Set> setRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
