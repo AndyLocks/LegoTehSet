@@ -53,7 +53,7 @@ public class DiscordUserCacheableRepository {
 
         var user = userJpaRepository.findOne(DiscordUser.exampleWithDiscordId(discordId));
 
-        LOG.debug("User from database [{}]: {}", discordId, user.get());
+        LOG.debug("User from database [{}]: {}", discordId, user.orElse(null));
 
         if (user.isEmpty()) {
             LOG.debug("User was not found [{}]. Creating a new one...", discordId);
@@ -95,7 +95,7 @@ public class DiscordUserCacheableRepository {
 
         var user = userJpaRepository.findOne(DiscordUser.exampleWithDiscordId(discordId));
 
-        LOG.debug("User from database [{}]: {}", discordId, user.get());
+        LOG.debug("User from database [{}]: {}", discordId, user.orElse(null));
 
         user.ifPresent(u -> userRedisTemplate.opsForValue().set(key, DiscordUserDto.fromJpa(u), DiscordUserTemplate.TTL_DURATION));
 
