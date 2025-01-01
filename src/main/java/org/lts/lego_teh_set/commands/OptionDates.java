@@ -23,7 +23,11 @@ public enum OptionDates {
             .addChoice("Ninjago", 435)
             .addChoice("Minecraft", 577)
             .addChoice("Duplo", 504)
-            .addChoice("Friends", 216));
+            .addChoice("Friends", 216)),
+    SET_NUM(new OptionData(OptionType.STRING,
+            "set_num",
+            "set number",
+            true));
 
     private OptionData optionData;
 
