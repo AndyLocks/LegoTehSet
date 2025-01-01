@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+/// Manages user data ({@link DiscordUser}) in the database and also caches data
 @Repository
 public class DiscordUserCacheableRepository {
 
@@ -30,7 +31,13 @@ public class DiscordUserCacheableRepository {
         this.setRepository = setRepository;
     }
 
-    public DiscordUser find(String discordId) {
+    /// Finds a user, otherwise creates a new one and returns it.
+    ///
+    /// Also caches results from database.
+    ///
+    /// @param discordId discord user id
+    /// @return never null
+    public DiscordUser findOrCreate(String discordId) {
         LOG.debug("Searching for user [{}]", discordId);
 
         var key = DiscordUserTemplate.USER_KEY_GENERATOR.apply(discordId);
@@ -66,6 +73,35 @@ public class DiscordUserCacheableRepository {
         return user.get();
     }
 
+    /// Finds a user.
+    ///
+    /// Also caches results from database.
+    ///
+    /// @param discordId discord user id
+    /// @return null if user was not found
+    public DiscordUser find(String discordId) {
+        LOG.debug("Searching for user [{}]", discordId);
+
+        var key = DiscordUserTemplate.USER_KEY_GENERATOR.apply(discordId);
+        LOG.debug("Redis key: {}", key);
+
+        var cache = userRedisTemplate.opsForValue().get(key);
+        LOG.debug("Cache was loaded [{}] {}", discordId, cache);
+
+        if (cache != null)
+            return cache.toJpa();
+
+        LOG.debug("Cache was not found [{}]", discordId);
+
+        var user = userJpaRepository.findOne(DiscordUser.exampleWithDiscordId(discordId));
+
+        LOG.debug("User from database [{}]: {}", discordId, user);
+
+        user.ifPresent(u -> userRedisTemplate.opsForValue().set(key, DiscordUserDto.fromJpa(u), DiscordUserTemplate.TTL_DURATION));
+
+        return user.orElse(null);
+    }
+
     public AddUserAction addFavourite(Set set) {
         return new AddUserAction(set, this);
     }
@@ -73,7 +109,7 @@ public class DiscordUserCacheableRepository {
     public void addFavourite(Set set, String discordId) {
         LOG.debug("Adding new set [{}] by Discord id [{}]", set, discordId);
 
-        var user = find(discordId);
+        var user = findOrCreate(discordId);
         var key = DiscordUserTemplate.USER_KEY_GENERATOR.apply(discordId);
 
         LOG.debug("User: {}", user);
@@ -103,29 +139,9 @@ public class DiscordUserCacheableRepository {
 
     /// @return empty list ({@link List#of()}) if user was not find.
     public List<Set> getFavourites(String discordId) {
-        LOG.debug("Searching for favourite sets with id [{}]", discordId);
+        var user = find(discordId);
 
-        var key = DiscordUserTemplate.USER_KEY_GENERATOR.apply(discordId);
-        LOG.debug("Redis key: {}", key);
-
-        var cache = userRedisTemplate.opsForValue().get(key);
-        LOG.debug("Cache was loaded [{}] {}", discordId, cache);
-
-        if (cache != null)
-            return cache.toJpa().getFavouriteSets();
-
-        LOG.debug("Cache was not found [{}]", discordId);
-
-        var user = userJpaRepository.findOne(DiscordUser.exampleWithDiscordId(discordId));
-
-        LOG.debug("User from database [{}]: {}", discordId, user);
-
-        user.ifPresent(u -> userRedisTemplate.opsForValue()
-                .set(key, DiscordUserDto.fromJpa(u), DiscordUserTemplate.TTL_DURATION));
-
-        user.ifPresent(u -> LOG.debug("User was cached [{}]: {}", discordId, u));
-
-        return user.isEmpty() ? List.of() : user.get().getFavouriteSets();
+        return user == null ? List.of() : user.getFavouriteSets();
     }
 
     public record AddUserAction(Set set, DiscordUserCacheableRepository repository) {
