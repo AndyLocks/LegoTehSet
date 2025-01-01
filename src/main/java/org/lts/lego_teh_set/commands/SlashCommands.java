@@ -7,7 +7,10 @@ public enum SlashCommands {
     /// @see org.lts.lego_teh_set.commands.implementations.CommandRandom
     RANDOM("random", "get random set"),
     /// @see org.lts.lego_teh_set.commands.implementations.CommandSearch
-    SEARCH("search", "find all lego sets");
+    SEARCH("search", "find all lego sets"),
+    /// @see org.lts.lego_teh_set.commands.implementations.CommandAddFavourite
+    ADD_FAVOURITE("add_favourite", "marks the set as a favourite"),
+    FAVOURITES("favourites", "show all favourite sets");
 
     private String name;
     private String description;
