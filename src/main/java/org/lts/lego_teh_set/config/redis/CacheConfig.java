@@ -12,7 +12,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
-import java.time.Duration;
 import java.util.function.Function;
 
 @Configuration
@@ -46,7 +45,7 @@ public class CacheConfig {
     /// # Implementations example
     ///
     /// - {@link AbstractContainerTemplateConfig#ABSTRACT_CONTAINER_KEY_GENERATOR}
-    /// - {@link SetRedisTemplateConfig#SET_KEY_GENERATOR}
+    /// - {@link SetRedisTemplateConfig#SET_LIST_KEY_GENERATOR}
     public static final Function<String, String> GLOBAL_KEY_GENERATOR = s -> String.format("lts:%s", s);
 
     @Value("${redis.host}")
@@ -63,7 +62,7 @@ public class CacheConfig {
         LOG.debug("Redis server: {}", redisServer);
         LOG.debug("Redis port: {}", redisPort);
 
-        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(redisServer, redisPort);
+        var configuration = new RedisStandaloneConfiguration(redisServer, redisPort);
         return new JedisConnectionFactory(configuration);
     }
 
@@ -72,7 +71,6 @@ public class CacheConfig {
 
         return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig()
-                        .entryTtl(Duration.ofMinutes(5))
                         .enableTimeToIdle())
                 .build();
     }
