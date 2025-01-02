@@ -36,7 +36,18 @@ public class EmbedBuilderCreator {
                     
                     ### Arguments
                     
-                    `theme` (optional) - set theme""");
+                    `theme` (optional) - set theme
+                    ## Favourites
+                    
+                    </favourites:1323850963886538774> - show my favourite sets
+                    ## Add Favourite
+                    
+                    </add_favourite:1323850963886538773> - mark a set as a favourite
+                    
+                    ### Arguments
+                    
+                    `set_num` - a special set identifier that can be found with the </search:1163119606987231342> command
+                    > Example: `42111-1`""");
 
     private static final EmbedBuilder nullErrorEmbedBuilder = new EmbedBuilder()
             .setColor(color)
