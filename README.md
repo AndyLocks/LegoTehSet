@@ -100,4 +100,4 @@ The basic microservice. Manages the bot logic, located in the `.` folder.
 
 ### Profile hub
 
-Profile microservice. Saves users' favorite sets and adds new ones.
+Profile microservice. Saves users' favorite sets and adds new ones. Located in the `profile_hub` folder.
