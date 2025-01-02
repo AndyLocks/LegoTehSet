@@ -12,7 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /// Implementation of {@link AbstractContainer}
 ///
-/// Contains a list of sets ({@link Set}) and allows you to manage them
+/// Contains ids of sets.
+/// During a [ContainerEmbed] request with [#currentEmbed()],
+/// it makes a request with [SetRepository] and generates a container on the fly
 public class LazyFavouritesContainer extends AbstractContainer {
 
     private final AtomicInteger index = new AtomicInteger(0);
@@ -20,7 +22,8 @@ public class LazyFavouritesContainer extends AbstractContainer {
     private static SetRepository setRepository;
     private final String memberNickname;
 
-    /// @param sets sets that the container must contain
+    /// @param memberNickname the username that will be displayed in the container ([ContainerEmbed]).
+    /// @param sets           sets that the container must contain
     /// @return a {@link LazyFavouritesContainer} that contains all `sets` converted to {@link ContainerEmbed}
     public static LazyFavouritesContainer fromSetList(final String memberNickname, final List<Api.FavouriteSet> sets, final SetRepository setRepository) {
         return new LazyFavouritesContainer(memberNickname, sets.stream()
@@ -67,11 +70,11 @@ public class LazyFavouritesContainer extends AbstractContainer {
                 .imageUrl(set.setImageUrl())
                 .footer(String.format("Year: %d", set.year()))
                 .description(String.format("""
-                            # %s's favorite sets :star:
-                            ### %d/%d
-                            # [%s](%s)
-                            ## %s
-                            Parts: %d""", memberNickname, index.get() + 1, setNumbers.size(), set.name(), set.setUrl(), set.number(), set.parts()))
+                        # %s's favorite sets :star:
+                        ### %d/%d
+                        # [%s](%s)
+                        ## %s
+                        Parts: %d""", memberNickname, index.get() + 1, setNumbers.size(), set.name(), set.setUrl(), set.number(), set.parts()))
                 .build();
     }
 
