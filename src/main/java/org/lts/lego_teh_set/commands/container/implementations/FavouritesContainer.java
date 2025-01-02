@@ -11,13 +11,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /// Implementation of {@link AbstractContainer}
 ///
-/// Contains a list of sets ({@link Set}) and allows you to manage them
+/// Stores and manages a list of favorite sets ([Set])
 public class FavouritesContainer extends AbstractContainer {
 
     private final AtomicInteger index = new AtomicInteger(0);
     private final List<ContainerEmbed> embeds = new ArrayList<>();
 
-    /// @param sets sets that the container must contain
+    /// @param memberNickname the username that will be displayed in the container ([ContainerEmbed]).
+    /// @param sets           sets that the container must contain
     /// @return a {@link FavouritesContainer} that contains all `sets` converted to {@link ContainerEmbed}
     public static FavouritesContainer fromSetList(final String memberNickname, final List<Api.FavouriteSet> sets) {
         return new FavouritesContainer(memberNickname, sets.stream()
