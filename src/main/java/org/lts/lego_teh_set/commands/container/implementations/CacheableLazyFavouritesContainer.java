@@ -13,7 +13,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /// Implementation of {@link AbstractContainer}
 ///
-/// Contains a list of sets ({@link Set}) and allows you to manage them
+/// Contains ids of sets.
+/// During a [ContainerEmbed] request with [#currentEmbed()],
+/// it makes a request with [SetRepository] and generates a container on the fly
+///
+/// It saves the generated containers and does not make a request to the [SetRepository] two times.
 public class CacheableLazyFavouritesContainer extends AbstractContainer {
 
     private final AtomicInteger index = new AtomicInteger(0);
@@ -21,7 +25,8 @@ public class CacheableLazyFavouritesContainer extends AbstractContainer {
     private static SetRepository setRepository;
     private final String memberNickname;
 
-    /// @param sets sets that the container must contain
+    /// @param memberNickname the username that will be displayed in the container ([ContainerEmbed]).
+    /// @param sets           sets that the container must contain
     /// @return a {@link CacheableLazyFavouritesContainer} that contains all `sets` converted to {@link ContainerEmbed}
     public static CacheableLazyFavouritesContainer fromSetList(final String memberNickname, final List<Api.FavouriteSet> sets, final SetRepository setRepository) {
         return new CacheableLazyFavouritesContainer(memberNickname, sets.stream()
