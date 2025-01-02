@@ -15,6 +15,13 @@ import org.lts.lego_teh_set.repository.SetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/// Class for listening to the command `add_favourite`.
+///
+/// Marks the set as a favourite
+///
+/// This class implements:
+///
+/// - [ListenerAdapter#onSlashCommandInteraction(SlashCommandInteractionEvent].
 @Component
 public class CommandAddFavourite extends ListenerAdapter implements CommandDataSupplier {
 
