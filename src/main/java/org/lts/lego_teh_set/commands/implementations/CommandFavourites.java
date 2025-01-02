@@ -22,6 +22,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/// Class for listening to the command `favourites`.
+///
+/// Shows all favourite sets
+///
+/// This class implements:
+///
+/// - [ListenerAdapter#onSlashCommandInteraction(SlashCommandInteractionEvent].
 @Component
 public class CommandFavourites extends ListenerAdapter implements CommandDataSupplier {
 
